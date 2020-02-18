@@ -120,7 +120,17 @@ session_start();
         require_once("agendamento.php");
         require_once("sobre.php");
         require_once("contato.php");
-    ?>                       
+    ?>
+
+    <script> //PARA DAR AUTO FOCO NO PRIMEIRO INPUT DE TODOS OS MODAIS DO INDEX.PHP
+        $('#modal-acesso').on('shown.bs.modal', function () {
+          $('#email').trigger('focus')
+        })
+
+        $('#modal-cadastro-escola').on('shown.bs.modal', function () {
+          $('#nome').trigger('focus')
+        })
+    </script>                       
 
 </body>
 
