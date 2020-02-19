@@ -10,6 +10,7 @@ $evento = $_GET['evento']; // ID evento
 $title = $_GET['title']; // titulo evento
 $escola = $_GET['escola']; // ID ESCOLA
 $nome = $_GET['nome']; // NOME da escola
+$email = $_GET['email']; // E-MAIL da escola
 $turma = $_GET['turma']; // ID turma
 $nivel_ensino = $_GET['nivel_ensino']; // nive de ensino
 $serie = $_GET['serie']; // serie
@@ -21,6 +22,8 @@ $_SESSION['hora'] = $hora;
 $_SESSION['escola'] = $escola;
 $_SESSION['turma'] = $turma;
 $_SESSION['evento'] = $evento;
+$_SESSION['nome'] = $nome;
+$_SESSION['email'] = $email;
 
 $frase = "";
 
