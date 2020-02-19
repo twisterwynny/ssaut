@@ -45,8 +45,8 @@ if (isset($_SESSION['msg']))
                         <font color="white">
                             Nível de Ensino:
                         </font>
-                        <select name='nivel_ensino'>
-                            <option value='0'>Selecione</option>
+                        <select name='nivel_ensino' required="">
+                            <option value=''>Selecione</option>
                             <option value='1'>Educação Infantil</option>
                             <option value='2'>Ensino Fundamental</option>
                             <option value='3'>Ensino Médio</option>
@@ -55,18 +55,18 @@ if (isset($_SESSION['msg']))
                         <font color="white">
                             Série:
                         </font>
-                        <select name='series'>
+                        <select name='series' required="">
                         </select>
 
                         <div class="hidden opcoes-s1">
-                            <option value='10'>Selecione</option>
+                            <option value=''>Selecione</option>
                             <option value='11'>N1</option>
                             <option value='12'>N2</option>
                             <option value='13'>N3</option>
                         </div>
 
                         <div class="hidden opcoes-s2">
-                            <option value='20'>Selecione</option>
+                            <option value=''>Selecione</option>
                             <option value='21'>1º ano</option>
                             <option value='22'>2º ano</option>
                             <option value='23'>3º ano</option>
@@ -79,7 +79,7 @@ if (isset($_SESSION['msg']))
                         </div>
 
                         <div class="hidden opcoes-s3">
-                            <option value='30'>Selecion</option>
+                            <option value=''>Selecione</option>
                             <option value='31'>1º ano</option>
                             <option value='32'>2º ano</option>
                             <option value='33'>3º ano</option>
@@ -91,7 +91,7 @@ if (isset($_SESSION['msg']))
                         <font color="white">
                             Nome da Turma:
                         </font>
-                        <input type="text" name="nome_turma" maxlength="1" size="35" placeholder="Insira apenas uma letra pra diferenciar">
+                        <input type="text" name="nome_turma" maxlength="1" size="35" placeholder="Insira apenas uma letra pra diferenciar" required="">
                         <BR>                                                
                         <!-- <hr></hr> --> <!-- DIVISÃO https://pt.stackoverflow.com/questions/175450/mudar-um-select-baseado-na-sele%C3%A7%C3%A3o-de-outro-select-a-partir-de-dados-no-bd -->
                         <BR>
@@ -105,12 +105,12 @@ if (isset($_SESSION['msg']))
                             <font color="white">
                                 Nome:
                             </font>
-                            <input type="text" name="nomes_prof_resp[]" maxlength="250" size="44" placeholder="Professor/Responsável">                                
+                            <input type="text" name="nomes_prof_resp[]" maxlength="250" size="44" placeholder="Professor/Responsável" required="">                                
                             <div>
                                 <font color="white">
                                     <label> Função: </label>
-                                    <input type="radio" id="p" name="cargo_funcao[]" value="1" class="radio-grande"> Professor 
-                                    <input type="radio" id="r" name="cargo_funcao[]" value="2" class="radio-grande"> Responsável 
+                                    <input type="radio" id="p" name="cargo_funcao[]" value="1" class="radio-grande" required="">Professor 
+                                    <input type="radio" id="r" name="cargo_funcao[]" value="2" class="radio-grande" required="">Responsável 
                                 </font>
                             </div>
                         </div>                        
@@ -161,7 +161,7 @@ if (isset($_SESSION['msg']))
                     {
                         cont++;                    
                         //https://api.jquery.com/append/                    
-                        $('#campos').append('<BR> <div id="campo' + cont + '"> <div> <font color="white"> Nome: </font> <input type="text" name="nomes_prof_resp[]" maxlength="250" size="44" placeholder="Professor/Responsável"> <button type="button" id="' + cont + '" class="btn-apagar"> remover </button> <div> <font color="white"> <label> Função: </label> <input type="radio" id="p' + cont + '" name="cargo_funcao[]' + cont + '[]" value="1" class="radio-grande"> Professor <input type="radio" id="r' + cont + '" name="cargo_funcao[]' + cont + '[]" value="2" class="radio-grande"> Responsável </font> </div> </div> </div>');
+                        $('#campos').append('<BR> <div id="campo' + cont + '"> <div> <font color="white"> Nome: </font> <input type="text" name="nomes_prof_resp[]" maxlength="250" size="44" placeholder="Professor/Responsável" required=""> <button type="button" id="' + cont + '" class="btn-apagar"> remover </button> <div> <font color="white"> <label> Função: </label> <input type="radio" id="p' + cont + '" name="cargo_funcao[]' + cont + '[]" value="1" class="radio-grande" required=""> Professor <input type="radio" id="r' + cont + '" name="cargo_funcao[]' + cont + '[]" value="2" class="radio-grande" required=""> Responsável </font> </div> </div> </div>');
                     }
                     else
                     {
