@@ -46,11 +46,11 @@ $_SESSION['cargo_funcao'] = $_POST['cargo_funcao'];
                                 <font color="white">
                                     <label >Nome: </label>
                                 </font>
-                                <input type="text" name="nomes_alunos[]" maxlength="250" placeholder="Digite o Nome do Aluno">                    
+                                <input type="text" name="nomes_alunos[]" maxlength="250" placeholder="Digite o Nome do Aluno" required="">                    
                                 <font color="white">
                                     <label>Data Nascimento: </label>
                                 </font>
-                                <input type="date" name="data_nascimento_alunos[]" maxlength="10">                    
+                                <input type="date" name="data_nascimento_alunos[]" maxlength="10" required="">                    
                             </div>                
                         </div>            
                         <div class="form-group">
@@ -70,7 +70,7 @@ $_SESSION['cargo_funcao'] = $_POST['cargo_funcao'];
                 $('#add-campo').click(function () {
                     cont++;
                     //https://api.jquery.com/append/
-                    $('#campos').append('<div class="form-group" id="campo' + cont + '"> <font color="white"> <label>Nome: </label> </font> <input type="text" name="nomes_alunos[]" placeholder="Digite o Nome do Aluno"> <font color="white"> <label> Data Nascimento: </label> </font> <input type="date" name="data_nascimento_alunos[]" maxlength="10" size="20"> <button type="button" id="' + cont + '" class="btn-apagar"> remover </button></div>');
+                    $('#campos').append('<div class="form-group" id="campo' + cont + '"> <font color="white"> <label>Nome: </label> </font> <input type="text" name="nomes_alunos[]" placeholder="Digite o Nome do Aluno" required=""> <font color="white"> <label> Data Nascimento: </label> </font> <input type="date" name="data_nascimento_alunos[]" maxlength="10" required=""> <button type="button" id="' + cont + '" class="btn-apagar"> remover </button></div>');
                 });
 
                 $('form').on('click', '.btn-apagar', function () {
