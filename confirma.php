@@ -9,6 +9,8 @@ $id_agendamento = $_SESSION['id_agendamento'];
 $evento = $_SESSION['evento'];
 $escola = $_SESSION['escola'];
 $turma = $_SESSION['turma'];
+$nome = $_SESSION['nome'];
+$email = $_SESSION['email'];
 
 if(!empty($id_agendamento) && !empty($evento) && !empty($escola) && !empty($turma))
 {
@@ -39,8 +41,14 @@ if(!empty($id_agendamento) && !empty($evento) && !empty($escola) && !empty($turm
 	}
 	else
 	{
+		$query = "DELETE FROM agendamentos WHERE id = '$id_agendamento'";			
+		$result_query = mysqli_query($conn, $query);
 		//echo "<BR>TERCEIRO<BR>";
 		$_SESSION['msg'] = "<div class='alert alert-warning' role='alert'> Obrigado por nos avisar! Você ainda pode escolher outros eventos que melhor se adequem a sua agenda. <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+		$assunto = "Agendamento Cancelado - Antares";
+		$msgEmail = "Este e-mail é para informar que seu agendamento foi cancelado mas que a qualquer momento você poderá solicitar outro na data e hora que melhor se adeque a sua agenda.";
+		require_once("fEnviarEmail.php");
+		enviarEmail();
 		header("Location: index.php");		
 	}
 }
