@@ -209,8 +209,8 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 								if ($qtd) {	// SE DIFERENTE DE ZERO É VERDADEIRO
 								?>
 									<label>Escolha a Turma : </label>
-									<select name="turmas" id="turmas">
-										<option value="0">Selecione</option>
+									<select name="turmas" id="turmas" required="">
+										<option value="">Selecione</option>
 								<?php
 									require_once("compara-select.php");
 									//$query = "SELECT vagas FROM eventos WHERE id=$id";// PESQUISA TODOS OS EVENTOS DISPONIVEIS NO BD
@@ -250,7 +250,7 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 				</div>
 			</div>
 		</div>
-
+		<!-- 
 		<div class="modal fade" id="confirmar-agendamento-modal" tabindex="-1" role="dialog" aria-labelledby="confirmar-agendamento-modal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -260,11 +260,12 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">								
+							<div class="col-sm-offset-2 col-sm-10">	-->							
 								<!-- <button type="submit" class="btn btn-primary">Lista Espera</button>
 								<button type="submit" class="btn btn-warning">Solicitar Vagas</button>
 								<a href='lista-espera.php' class='btn btn-primary'>Lista Espera </a>
 								<a href='mais-vagas.php' class='btn btn-warning '>Solicitar Vagas</a> -->
+							<!-- 
 							</div>
 						</div>
                     </div>
@@ -278,7 +279,8 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
                     </div>
                 </div>
             </div>
-        </div>	
+        </div>
+        -->
 
         
 		
