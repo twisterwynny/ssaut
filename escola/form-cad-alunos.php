@@ -19,7 +19,7 @@ $_SESSION['cargo_funcao'] = $_POST['cargo_funcao'];
         <link href="../css/meu-css.css" rel="stylesheet">  <!-- PARA AUMENTAR TAMNANHO DO RADIO BUTTON -->
         <title>Cadastrar Alunos da Turma</title>
         <link href='../css/bootstrap.min.css' rel='stylesheet'>
-        <link href='../css/personalizado.css' rel='stylesheet' />
+        <link href='../css/estilo.css' rel='stylesheet' />
         <script src='../js/jquery.min.js'></script>
         <script src='../js/bootstrap.min.js'></script>
         <script src='../js/moment.min.js'></script>
