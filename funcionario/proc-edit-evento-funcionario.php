@@ -53,18 +53,18 @@ if(!empty($id) && !empty($title) && !empty($descricao) && !empty($vagas) && !emp
 	{
 		require_once("repete-edit-evento-funcionario.php");		
 		$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>O Evento editado com Sucesso<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";				
-		header("Location: t-c-funcionario.php");
+		header("Location: t-c-horarios-eventos-funcionario.php");
 	}
 	else
 	{
 		$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>UM Erro ao editar o evento <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-		header("Location: t-c-funcionario.php");
+		header("Location: t-c-horarios-eventos-funcionario.php");
 	}	
 }
 else
 {
 	$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>DOIS Erro ao editar o evento <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-	header("Location: t-c-funcionario.php");
+	header("Location: t-c-horarios-eventos-funcionario.php");
 }
 
 ?>
