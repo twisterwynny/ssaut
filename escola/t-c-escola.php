@@ -1,18 +1,14 @@
 <?php
-
 session_start();
-$escola = $_SESSION['usuarioId'];
 include_once("../db/conexao.php");
-
+$escola = $_SESSION['usuarioId'];
 $query = "SELECT COUNT(id) AS qtd FROM turmas WHERE escola='$escola'"; //CONTA QUANTIDADE DE TURMAS QUE ESCOLA TEM
 $result_query = mysqli_query($conn, $query);
 $row = mysqli_fetch_array($result_query);
 $qtd = $row['qtd'];//RETORNA E ATRIBUI QUANTIDADE DE TURMAS PRA VARIÁVEL 
 if ($qtd > 0) $agendar = TRUE; // SE TIVER PELO MENOS UMA TURMA ENTÃO PERMITE AGENDAR
-
-$query = "SELECT id, estagiario, title, descricao, vagas, start, end, color FROM eventos";// PESQUISA TODOS OS EVENTOS DISPONIVEIS NO BD
+$query = "SELECT id, title, descricao, vagas, start, end, color FROM eventos";// PESQUISA TODOS OS EVENTOS DISPONIVEIS NO BD
 $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO DE TODOS OS EVENTOS DISPONIVEIS.
-
 ?>
 
 <!DOCTYPE html>
@@ -24,17 +20,20 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 		<link href='../css/bootstrap.min.css' rel='stylesheet'>
 		<link href='../css/fullcalendar.min.css' rel='stylesheet' />
 		<link href='../css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-		<link href='../css/personalizado.css' rel='stylesheet' />
+		<link href='../css/estilo.css' rel='stylesheet' />
 		<script src='../js/jquery.min.js'></script>
 		<script src='../js/bootstrap.min.js'></script>
 		<script src='../js/moment.min.js'></script>
 		<script src='../js/fullcalendar.min.js'></script>
 		<script src='../locale/pt-br.js'></script>
 		<script>
-			$(document).ready(function() {
-				$('#calendar').fullCalendar({
-					header: {
-						left: 'prev,next today',
+			$(document).ready(function()
+			{
+				$('#calendar').fullCalendar(
+				{
+					header:
+					{
+						left: 'prev,next, today',
 						center: 'title',
 						right: 'month,agendaWeek,agendaDay'
 					},
@@ -42,26 +41,23 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 					navLinks: true, // can click day/week names to navigate views
 					editable: true,
 					eventLimit: true, // allow "more" link when too many events
-					eventClick: function(event) {
-						
-						$('#visualizar #id').text(event.id); // SETA TEXTO ID
-						$('#visualizar #id').val(event.id); // SETA VALOR ID
-						$('#visualizar #estagiario').text(event.estagiario);
-						$('#visualizar #estagiario').val(event.estagiario);
-						$('#visualizar #title').text(event.title);
-						$('#visualizar #title').val(event.title);
-						$('#visualizar #descricao').text(event.descricao);
-						$('#visualizar #descricao').val(event.descricao);
-						$('#visualizar #vagas').text(event.vagas); //SETA TEXTO DAS VAGAS
-						$('#visualizar #vagas').val(event.vagas);	//SETA QUANTIDADE DAS VAGAS // PRA CONSEGUIR ENVIAR ESSE VALOR IMPUT HIDDEN
-						$('#visualizar #start').text(event.start.format('DD/MM/YYYY HH:mm:ss'));
-						$('#visualizar #start').val(event.start.format('DD/MM/YYYY HH:mm:ss'));
-						$('#visualizar #end').text(event.end.format('DD/MM/YYYY HH:mm:ss'));
-						$('#visualizar #end').val(event.end.format('DD/MM/YYYY HH:mm:ss'));												
-						$('#visualizar #color').val(event.color);
-
+					eventClick: function(event)
+					{						
+						$('#ver #id').text(event.id); // SETA TEXTO ID
+						$('#ver #id').val(event.id); // SETA VALOR ID						
+						$('#ver #title').text(event.title);
+						$('#ver #title').val(event.title);
+						$('#ver #descricao').text(event.descricao);
+						$('#ver #descricao').val(event.descricao);
+						$('#ver #vagas').text(event.vagas); //SETA TEXTO DAS VAGAS
+						$('#ver #vagas').val(event.vagas);	//SETA QUANTIDADE DAS VAGAS // PRA CONSEGUIR ENVIAR ESSE VALOR IMPUT HIDDEN
+						$('#ver #start').text(event.start.format('DD/MM/YYYY HH:mm:ss'));
+						$('#ver #start').val(event.start.format('DD/MM/YYYY HH:mm:ss'));
+						$('#ver #end').text(event.end.format('DD/MM/YYYY HH:mm:ss'));
+						$('#ver #end').val(event.end.format('DD/MM/YYYY HH:mm:ss'));												
+						$('#ver #color').val(event.color);
 						//PRA EXIBIR OU NÃO OS BOTÕES CORRETOS.
-						var vagas = $('#visualizar #vagas').val(); // RETORNA QUANTIDADE DE VAGAS
+						var vagas = $('#ver #vagas').val(); // RETORNA QUANTIDADE DE VAGAS
 						if(vagas == 0)
 						{
 							//document.getElementById("zero").style.visibility = 'hidden'; //OCULTA BOTÃO
@@ -72,78 +68,64 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 							//document.getElementById("zero").style.visibility = 'visible'; // MOSTRA BOTÃO							
 							document.getElementById("zero").disabled = false; // HABILITA BOTÃO
 						}
-						//PRA EXIBIR OU NÃO OS BOTÕES CORRETOS.
-						
-
-						$('#visualizar').modal('show');
+						$('#ver').modal('show');//PRA EXIBIR OU NÃO OS BOTÕES CORRETOS.
 						/*
-						$('#visualizar').modal({
+						$('#ver').modal({
 						  keyboard: true
 						});
 						*/
 						return false;
-
-					},
-					
-					selectable: true,
-					selectHelper: true,
-					select: function(start, end){
-						$('#cadastrar #start').val(moment(start).format('DD/MM/YYYY HH:mm:ss'));
-						$('#cadastrar #end').val(moment(end).format('DD/MM/YYYY HH:mm:ss'));
-						$('#cadastrar').modal('show');						
-					},
-					events: [
+					},					
+					selectable: false,
+					selectHelper: false,					
+					events:
+					[
 						<?php
-							while($row_events = mysqli_fetch_array($result_query)){// ATRIBUI OS VALORES DE CADA LINHA DA PESQUISA REALIZADA COM TODOS OS EVENTOS DISPONIVEIS.
-								?>
-								{
-								id: '<?php echo $row_events['id']; ?>',
-								estagiario: '<?php echo $row_events['estagiario']; ?>',
-								title: '<?php echo $row_events['title']; ?>',
-								descricao: '<?php echo $row_events['descricao']; ?>',
-								vagas: '<?php echo $row_events['vagas']; ?>',
-								start: '<?php echo $row_events['start']; ?>',
-								end: '<?php echo $row_events['end']; ?>',
-								color: '<?php echo $row_events['color']; ?>',								
-								},<?php
-							}
-						?>
+						while($row_events = mysqli_fetch_array($result_query))
+						{// ATRIBUI OS VALORES DE CADA LINHA DA PESQUISA REALIZADA COM TODOS OS EVENTOS DISPONIVEIS.
+						?>//FECHA PHP
+							{
+							id: '<?php echo $row_events['id']; ?>',								
+							title: '<?php echo $row_events['title']; ?>',
+							descricao: '<?php echo $row_events['descricao']; ?>',
+							vagas: '<?php echo $row_events['vagas']; ?>',
+							start: '<?php echo $row_events['start']; ?>',
+							end: '<?php echo $row_events['end']; ?>',
+							color: '<?php echo $row_events['color']; ?>',								
+							},
+						<?php
+						}
+						?>//FECHA PHP
 					]
-				});
-			});
-			
-			//Mascara para o campo data e hora
-			function DataHora(evento, objeto){
-				var keypress=(window.event)?event.keyCode:evento.which;
+				}); // FECHA fullCalendar(
+			});	// FECHA ready(
+			function MascaraDataHora(evento, objeto) //mascara para o campo DATETIME do formato SQL ser apresentado no formato brasileiro
+			{
+				var clica=(window.event)?event.keyCode:evento.which;
 				campo = eval (objeto);
-				if (campo.value == '00/00/0000 00:00:00'){
-					campo.value=""
+				if(campo.value == '00/00/0000 00:00:00') campo.value = "";			 
+				numeros = '0123456789';
+				token1 = '/';
+				token2 = ' ';
+				token3 = ':';
+				grupo1 = 2;
+				grupo2 = 5;
+				grupo3 = 10;
+				grupo4 = 13;
+				grupo5 = 16;
+				if((numeros.search(String.fromCharCode (clica)) != -1) && campo.value.length < (19))
+				{
+					if(campo.value.length == grupo1 ) campo.value = campo.value + token1;
+					else if(campo.value.length == grupo2) campo.value = campo.value + token1;
+					else if(campo.value.length == grupo3) campo.value = campo.value + token2;
+					else if(campo.value.length == grupo4) campo.value = campo.value + token3;
+					else if(campo.value.length == grupo5) campo.value = campo.value + token3;
 				}
-			 
-				caracteres = '0123456789';
-				separacao1 = '/';
-				separacao2 = ' ';
-				separacao3 = ':';
-				conjunto1 = 2;
-				conjunto2 = 5;
-				conjunto3 = 10;
-				conjunto4 = 13;
-				conjunto5 = 16;
-				if ((caracteres.search(String.fromCharCode (keypress))!=-1) && campo.value.length < (19)){
-					if (campo.value.length == conjunto1 )
-					campo.value = campo.value + separacao1;
-					else if (campo.value.length == conjunto2)
-					campo.value = campo.value + separacao1;
-					else if (campo.value.length == conjunto3)
-					campo.value = campo.value + separacao2;
-					else if (campo.value.length == conjunto4)
-					campo.value = campo.value + separacao3;
-					else if (campo.value.length == conjunto5)
-					campo.value = campo.value + separacao3;
-				}else{
+				else
+				{
 					event.returnValue = false;
 				}
-			}
+			}			
 		</script>
 	</head>
 	<body>
@@ -152,6 +134,7 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
         		<div id="ceu" class="img_fundo" style="padding-bottom: 10%; padding-top: 0%">
 		
 					<a href="../index.php"> HOME </a><br>
+					<a href="listar-agendamentos.php"> VER TODOS OS MEUS AGENDAMENTOS </a><br>
 
 					<div class="container">
 						<font color="white">
@@ -159,23 +142,20 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 						</font>
 						<BR>
 						
-						<?php
-						
+						<?php						
 						if(isset($_SESSION['msg']))
 						{
 							echo $_SESSION['msg'];
 							unset($_SESSION['msg']);
-						}
-						
+						}						
 						?>
 
-						<div id='calendar'></div>
+						<div id='calendar'></div> <!--	DIV DO CALENDÁRIO. AQUI APARECE O CALENDÁRIO-->
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="modal fade" id="visualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
+		<div class="modal fade" id="ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -183,22 +163,26 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 						<h4 class="modal-title text-center">Dados do Evento</h4>
 					</div>
 					<div class="modal-body">
-						<div class="visualizar">
+						<div class="ver">
 							<dl class="dl-horizontal">								
-								<dt>Titulo do Evento</dt>
+								<dt>TEMA: </dt>
 								<dd id="title"></dd>
-								<dt>Descrição do Evento</dt>
+								<dt>Descrição: </dt>
 								<dd id="descricao"></dd>
-								<dt>Inicio do Evento</dt>
+								<dt>Inicio do Evento: </dt>
 								<dd id="start"></dd>
-								<dt>Fim do Evento</dt>
+								<dt>Fim do Evento: </dt>
 								<dd id="end"></dd>								
-								<dt>Vagas</dt>
+								<dt>Vagas: </dt>
 								<dd id="vagas"></dd>
 							</dl>
-							<button id="zero" class="btn btn-agenda-visita btn-success">AGENDAR VISITA</button>
-							<button class="btn btn-lista-espera btn-primary">LISTA ESPERA</button>
-							<button class="btn btn-solicitar-vagas btn-warning">SOLICITAR VAGAS</button>
+							<div class="form-group">
+								<div class="text-center">
+									<button id="zero" class="btn btn-agenda-visita btn-success">AGENDAR VISITA</button>
+									<button class="btn btn-lista-espera btn-primary">LISTA ESPERA</button>
+									<button class="btn btn-solicitar-vagas btn-warning">SOLICITAR VAGAS</button>
+								</div>
+							</div>
 						</div>
 						<div class="form">
 							<form class="form-horizontal" method="POST" action="proc-edit-evento-escola.php">								
@@ -280,31 +264,26 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
                 </div>
             </div>
         </div>
-        -->
-
-        
-		
+        -->	
 		<script>
 			$('.btn-agenda-visita').on("click", function() {
 				$('.form').slideToggle();
-				$('.visualizar').slideToggle();
+				$('.ver').slideToggle();
 			});
 			$('.btn-cancela-turma').on("click", function() {
-				$('.visualizar').slideToggle();
+				$('.ver').slideToggle();
 				$('.form').slideToggle();
 			});
 			$('.btn-lista-espera').on("click", function() {
 				$('.form').slideToggle();
-				$('.visualizar').slideToggle();
+				$('.ver').slideToggle();
 			});
 			$('.btn-solicitar-vagas').on("click", function() {
 				$('.form').slideToggle();
-				$('.visualizar').slideToggle();
+				$('.ver').slideToggle();
 			});
 		</script>
-
-		<?php		/*
-		if(isset($_SESSION['turma']))
+		<?php		/*if(isset($_SESSION['turma']))
 		{
 		?>
 		<script>
@@ -314,7 +293,6 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 			});
 		</script>
 		<?php
-		}			*/			
-		?>
+		}*/		?>
 	</body>
 </html>
