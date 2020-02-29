@@ -49,7 +49,7 @@
           </div>
           <div class="form-group">
             <label for="senha"> Senha: </label>
-            <input type="password" class="form-control" name="senha" id="senha" placeholder="Digite a Senha" required="">
+            <input type="password" class="form-control" name="senha" id="senha" placeholder="APENAS 4 DÍGITOS ALFANUMÉRICOS" required="">
           </div>
           <div class="form-group">
             <label for="fone"> Telefone: </label>
