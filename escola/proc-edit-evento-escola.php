@@ -53,8 +53,8 @@ if(!empty($id) && !empty($QTD_alunos) && $turma != 0){
 			//echo "<BR>PRIMEIRO<BR>";
 			$vagas -= $QTD_alunos; //SUBTRAI QUANTIDADE DE ALUNOS DO TOTAL DE VAGAS PARA ATUALIZAR O CAMPO DA TABELA EVENTOS
 
-			$result_events = "INSERT INTO agendamentos (evento, escola, turma, confirmado) VALUES ('$id', '$escola', '$turma', 0)";
-			$resultado_events = mysqli_query($conn, $result_events);
+			$result_events = "INSERT INTO agendamentos (evento, escola, turma, avisado, confirmado, excluido) VALUES ('$id', '$escola', '$turma', 0, 0, 0)";
+			$resultado_events = mysqli_query($conn, $result_events);// SE EXCLUIDO = 1 ENTÃO AGENDAMENTO FOI DELETADO, CASO CONTRÁRIO, EXCLUIDO = 0
 
 			$result_events = "UPDATE eventos SET vagas = '$vagas' WHERE id = '$id'";			
 			$resultado_events = mysqli_query($conn, $result_events);
