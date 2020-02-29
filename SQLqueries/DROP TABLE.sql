@@ -1,4 +1,6 @@
 USE antares;
+DROP TABLE mais_vagas;
+DROP TABLE lista_espera;
 DROP TABLE agendamentos;
 DROP TABLE eventos;
 DROP TABLE alunos;
