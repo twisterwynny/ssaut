@@ -53,8 +53,8 @@
                     }                    
                     else if($_SESSION['permissao'] == 3) // ESCOLA
                     {                        
-                        echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='escola/form-cad-turma.php' role='button'>Cadastar Turmas</a> </li>";
-                        echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='escola/t-c-escola.php' role='button'>Gerenciar Visitas</a> </li>";
+                        echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='escola/form-cad-turma.php' role='button'>Cadastar Turmas</a> </li>";                        
+                        echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='agendamentos/t-c-agendamentos.php' role='button'>Gerenciar Visitas</a> </li>";
                     }                    
                     else // ADMINISTRADOR (INCOMPLETO)
                     {
