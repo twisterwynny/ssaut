@@ -122,6 +122,7 @@ $result_query = mysqli_query($conn, $query);
         		<div id="ceu" class="img_fundo" style="padding-bottom: 10%; padding-top: 0%">
 		
 					<a href="../index.php"> HOME </a><br>
+					<a href="../funcionario/selecionar-escola.php"> AGENDAR VISITA PARA ESCOLA </a><br>
 
 					<div class="container">
 						<font color="white">
@@ -279,7 +280,7 @@ $result_query = mysqli_query($conn, $query);
 											<select class="form-control" id="estagiario" name="estagiario" required="">
 									 			<option value="">Selecione</option>
 								 				<?php
-												require_once("retornaEstagiarios.php");//	<div class="col-sm-10">
+												require_once("retorna-estagiarios.php");//	<div class="col-sm-10">
 												?>
 											</select>
 										</div>
