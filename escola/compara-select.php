@@ -1,6 +1,7 @@
 <?php
 
-$escola = $_SESSION['usuarioId'];
+//$escola = $_SESSION['usuarioId'];
+$escola = $_SESSION['escola']; //ID da escola
 
 $query = "SELECT id, nivel, serie, nome_turma FROM turmas WHERE escola='$escola'";//PESQUISA TODAS AS TURMAS QUE A ESCOLA TEM CADASTRADA
 $result_query = mysqli_query($conn, $query);
