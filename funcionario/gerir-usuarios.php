@@ -12,7 +12,7 @@ session_start();
 		<a href="../index.php"> HOME </a><br>
 		<a href="form-cad-usuario.php">Cadastrar Usuário</a><br>
 		<a href="listar-usuarios.php">Listar Usuários</a><br>
-		<a href="pesquisar-usuarios.php">Pesquisar Usuários</a><br>		
+		<a href="buscar-usuarios.php">Buscar Usuários</a><br>		
 		<?php
 		if(isset($_SESSION['msg']))
 		{
