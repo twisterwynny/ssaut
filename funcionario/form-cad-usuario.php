@@ -11,8 +11,8 @@ session_start();
 	<body>
 		<a href="../index.php"> HOME </a><br>
 		<a href="form-cad-usuario.php">Cadastrar Usuário</a><br>
-		<a href="listar-usuarios.php">Listar Usuários</a><br>
-		<a href="pesquisar-usuarios.php">Pesquisar Usuários</a><br>
+		<a href="form-listar-usuarios.php">Listar Usuários</a><br>
+		<a href="form-buscar-usuarios.php">Buscar Usuários</a><br>
 		<h1>Cadastrar Usuário</h1>
 
 		<?php
