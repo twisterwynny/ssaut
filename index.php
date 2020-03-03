@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (isset($_SESSION['funcionario_agendou']))
+{    
+    unset($_SESSION['escola']);
+    unset($_SESSION['selecionou_escola']);
+    unset($_SESSION['funcionario_agendou']);    
+}
 ?>
 
 <!doctype html>
