@@ -60,9 +60,16 @@ if(!empty($id) && !empty($QTD_alunos) && $turma != 0){
 			$result_events = "UPDATE eventos SET vagas = '$vagas' WHERE id = '$id'";			
 			$resultado_events = mysqli_query($conn, $result_events);
 
-
-			$_SESSION['msg'] = "<div class='alert alert-success' role='alert'> Agendamento realizado com sucesso! <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-			header("Location: t-c-agendamentos.php");
+			if($_SESSION['permissao'] == 3) // SE USUÁRIO FOR ESCOLA
+			{
+				$_SESSION['msg'] = "<div class='alert alert-success' role='alert'> Agendamento realizado com sucesso! <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+				header("Location: t-c-agendamentos.php");
+			}
+			else // SE USUÁRIO FOR FUNCIONÁRIO
+			{				
+				$_SESSION['funcionario_agendou'] = true;
+				header("Location: t-c-agendamentos.php");
+			}			
 		}
 		else
 		{
