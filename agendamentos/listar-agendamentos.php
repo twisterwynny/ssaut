@@ -42,15 +42,15 @@ include_once("../db/conexao.php");
 				unset($_SESSION['msg']);
 			}
 			
-			$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT); //pega o número da página atual na variável contida na URL.
+			$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT); 
 			
-			$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1; // operador ternário, se pagina_atual NÃO estiver vazia, então pagina = pagina_atual, caso contrário, pagina = 1;
+			$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1; 
 			
-			$total_de_resultados_por_pagina = 3; //define a quantidade de resultados listados em cada página			
+			$total_de_resultados_por_pagina = 3; 
 			
-			$inicio = ($total_de_resultados_por_pagina * $pagina) - $total_de_resultados_por_pagina; //define onde começa a exibição em cada página. por exemplo: se forem 2 resultados por página e estiver na pagina dois, então começa a exibir do resultado 3. se estiver na pagina 3 então começa a exibir no resultado 5.
+			$inicio = ($total_de_resultados_por_pagina * $pagina) - $total_de_resultados_por_pagina; 
 			
-			$query = "SELECT * FROM agendamentos WHERE (escola = $usuario AND excluido = 0) LIMIT $inicio, $total_de_resultados_por_pagina"; // cada clique no link, executa este select uma vez.
+			$query = "SELECT * FROM agendamentos WHERE (escola = $usuario AND excluido = 0) LIMIT $inicio, $total_de_resultados_por_pagina"; 			
 			$result_query = mysqli_query($conn, $query);
 
 			while($row_agendamento = mysqli_fetch_assoc($result_query))
@@ -85,12 +85,12 @@ include_once("../db/conexao.php");
 				$i++;
 			}						
 			
-			$query = "SELECT COUNT(id) AS total_agendamentos FROM agendamentos WHERE escola = $usuario"; // conta todos os usuarios na tabela e retorna o total
+			$query = "SELECT COUNT(id) AS total_agendamentos FROM agendamentos WHERE escola = $usuario"; 
 			$result_query = mysqli_query($conn, $query);
 			$row_pagina = mysqli_fetch_assoc($result_query); //echo $row_pagina['total_agendamentos'];			
-			$total_de_paginas = ceil($row_pagina['total_agendamentos'] / $total_de_resultados_por_pagina); //determina o total de paginas de resultados para suportar a exibição de todos os usuários que foram contados na tabela
+			$total_de_paginas = ceil($row_pagina['total_agendamentos'] / $total_de_resultados_por_pagina); 
 			
-			$max_links = 2; // define o limite de links exibidos em "PAGINAS ANTERIORES" e "PAGINAS SEGUINTES"
+			$max_links = 2; 
 
 			echo "<a href='listar-agendamentos.php?pagina=1'>Primeira</a> ";
 			
