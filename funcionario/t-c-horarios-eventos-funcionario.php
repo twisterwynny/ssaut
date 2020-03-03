@@ -122,7 +122,7 @@ $result_query = mysqli_query($conn, $query);
         		<div id="ceu" class="img_fundo" style="padding-bottom: 10%; padding-top: 0%">
 		
 					<a href="../index.php"> HOME </a><br>
-					<a href="../funcionario/selecionar-escola.php"> AGENDAR VISITA PARA ESCOLA </a><br>
+					<a href="encontrar-escola-usuario.php"> AGENDAR VISITA PARA ESCOLA </a><br>
 
 					<div class="container">
 						<font color="white">
