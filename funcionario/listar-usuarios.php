@@ -17,7 +17,7 @@ include_once("../db/conexao.php");
 			<a href="../index.php">HOME</a><br>
 			<a href="form-cad-usuario.php">Cadastrar</a><br>
 			<a href="listar-usuarios.php">Listar</a><br>
-			<a href="pesquisar-usuarios.php">Pesquisar</a><br>
+			<a href="buscar-usuarios.php">Buscar</a><br>
 			<h1> Listar Usuários </h1>
 
 			<?php			
