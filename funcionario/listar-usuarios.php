@@ -28,32 +28,34 @@ include_once("../db/conexao.php");
 				unset($_SESSION['msg']);
 			}
 			
-			$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT); 
+			$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT); //pega o número da página atual na variável contida na URL.
 			
-			$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1; 
+			$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1; // operador ternário, se pagina_atual NÃO estiver vazia, então pagina = pagina_atual, caso contrário, pagina = 1;
 			
-			$total_de_resultados_por_pagina = 3; 
+			$total_de_resultados_por_pagina = 3; //define a quantidade de resultados listados em cada página			
 			
-			$inicio = ($total_de_resultados_por_pagina * $pagina) - $total_de_resultados_por_pagina; 
+			$inicio = ($total_de_resultados_por_pagina * $pagina) - $total_de_resultados_por_pagina; //define onde começa a exibição em cada página. por exemplo: se forem 2 resultados por página e estiver na pagina dois, então começa a exibir do resultado 3. se estiver na pagina 3 então começa a exibir no resultado 5.
 			
-			$query = "SELECT * FROM usuarios LIMIT $inicio, $total_de_resultados_por_pagina"; 
+			$query = "SELECT * FROM usuarios LIMIT $inicio, $total_de_resultados_por_pagina"; // cada clique no link, executa este select uma vez.
 			$result_query = mysqli_query($conn, $query);
 			while($row_usuario = mysqli_fetch_assoc($result_query))
 			{
 				echo "ID: " . $row_usuario['id'] . "<br>";
 				echo "Nome: " . $row_usuario['nome'] . "<br>";
 				echo "E-mail: " . $row_usuario['email'] . "<br>";
-				echo "<a href='editar-usuario.php?id=" . $row_usuario['id'] . "'>Editar</a><br>";				
+				echo "<a href='editar-usuario.php?id=" . $row_usuario['id'] . "'>Editar</a><br>";
+				//echo "<a href='proc-excluir-usuario.php?id=" . $row_usuario['id'] . "'>excluir</a><br><hr>";
+				//echo "<a href='proc-excluir-usuario.php?id=" . $row_usuario['id'] . "' data-confirm='Esta operação não pode ser desfeita! Confirmar exclusão deste Usuário?'>excluir</a><br><hr>";
 				echo "<a href='proc-excluir-usuario.php?id=" . $row_usuario['id'] . "' data-confirm=''>excluir</a><br><hr>";
 			}			
 			
-			$query = "SELECT COUNT(id) AS total_usuarios FROM usuarios"; 
+			$query = "SELECT COUNT(id) AS total_usuarios FROM usuarios"; // conta todos os usuarios na tabela e retorna o total
 			$result_query = mysqli_query($conn, $query);
 			$row_pagina = mysqli_fetch_assoc($result_query);
 			//echo $row_pagina['total_usuarios'];			
-			$total_de_paginas = ceil($row_pagina['total_usuarios'] / $total_de_resultados_por_pagina); 
+			$total_de_paginas = ceil($row_pagina['total_usuarios'] / $total_de_resultados_por_pagina); //determina o total de paginas de resultados para suportar a exibição de todos os usuários que foram contados na tabela
 			
-			$max_links = 2; 
+			$max_links = 2; // define o limite de links exibidos em "PAGINAS ANTERIORES" e "PAGINAS SEGUINTES"	
 
 			echo "<a href='listar-usuarios.php?pagina=1'>Primeira</a> ";
 			
@@ -88,7 +90,7 @@ include_once("../db/conexao.php");
 					var href = $(this).attr('href');
 					if(!$('#confirm-delete').length)
 					{
-						$('body').append('<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modal-confirmar-excluir" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header bg-danger text-white">EXCLUIR ITEM<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Esta operação não pode ser desfeita! Confirmar exclusão deste Usuário?</div><div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button><a class="btn btn-danger text-white" id="dataComfirmOK">Excluir</a></div></div></div></div>');
+						$('body').append('<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modal-confirmar-excluir" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header bg-danger text-white">EXCLUIR USUÁRIOS<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Esta operação não pode ser desfeita! Confirmar exclusão deste Usuário?</div><div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">NÃO! deixar como está</button><a class="btn btn-danger text-white" id="dataComfirmOK">SIM! Excluir</a></div></div></div></div>');
 					}
 					$('#dataComfirmOK').attr('href', href);
 			        $('#confirm-delete').modal({show: true});
