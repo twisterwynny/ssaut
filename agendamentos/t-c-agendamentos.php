@@ -155,8 +155,9 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 						echo "<a href='listar-agendamentos.php'> VER TODOS OS MEUS AGENDAMENTOS </a><br>";
 					}
 					else
-					{							
-						echo "<a href='../funcionario/pesquisar-agendamentos.php'> PESQUISAR AGENDAMENTOS </a><br>";
+					{						
+						echo "<a href='listar-agendamentos.php'> VER AGENDAMENTOS DESTA ESCOLA</a><br>";
+						echo "<a href='../funcionario/buscar-agendamentos.php'> BUSCAR AGENDAMENTOS </a><br>";
 					}
 					?>
 
