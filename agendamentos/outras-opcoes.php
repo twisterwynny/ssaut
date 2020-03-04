@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <link href="../css/index.css" rel="stylesheet">  <!-- PARA CEU DE TELA INTEIRA NO FUNDO -->
         <link href="../css/meu-css.css" rel="stylesheet">  <!-- PARA AUMENTAR TAMNANHO DO RADIO BUTTON -->
-        <title> Cadastrar Turmas</title>        
+        <title> Outras Opções </title>        
         <link href='../css/bootstrap.min.css' rel='stylesheet'>
         <link href='../css/estilo.css' rel='stylesheet' />
         <script src='../js/jquery.min.js'></script>
