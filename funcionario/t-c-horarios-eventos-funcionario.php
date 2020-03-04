@@ -123,7 +123,7 @@ $result_query = mysqli_query($conn, $query);
 		
 					<a href="../index.php"> HOME </a><br>
 					<a href="encontrar-escola-usuario.php"> AGENDAR VISITA PARA ESCOLA </a><br>
-					<a href='pesquisar-agendamentos.php'> BUSCAR AGENDAMENTOS </a><br>
+					<a href='buscar-agendamentos.php'> BUSCAR AGENDAMENTOS </a><br>
 
 					<div class="container">
 						<font color="white">
