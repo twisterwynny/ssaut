@@ -25,9 +25,8 @@ include_once "../db/conexao.php";
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> <!-- essa linha é o CSS do bootstrap frameworkd-->
-		<!-- as 3 linhas abaixo são JS do bootstrap frameworkd-->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> <!-- essa linha é o CSS do bootstrap frameworkd-->		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> <!-- as 3 linhas abaixo são JS do bootstrap frameworkd-->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>		
 		<title> Buscar Usuários ou Escolas </title>		
@@ -41,6 +40,7 @@ include_once "../db/conexao.php";
 		<form method="POST" action="">
 			<label>Nome: </label>
 			<input type="text" name="nome" placeholder="Digite o nome"><br><br>
+			<!-- <a href=""></a> -->
 			
 			<input name="buscar" type="submit" value="Encontrar">
 		</form><br><br>
