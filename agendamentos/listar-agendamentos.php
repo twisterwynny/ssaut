@@ -25,7 +25,8 @@ include_once("../db/conexao.php");
 			}
 			else
 			{
-				$usuario = $_SESSION['usuario_pesquisado'];// PARA USUÁRIO FUNCIONÁRIO
+				//$usuario = $_SESSION['usuario_pesquisado'];// PARA USUÁRIO FUNCIONÁRIO
+				$usuario = $_SESSION['escola'];// PARA USUÁRIO FUNCIONÁRIO
 				echo "<h1 class='text-center'>Agendamentos deste Usuário</h1>";
 			}
 			
@@ -50,7 +51,7 @@ include_once("../db/conexao.php");
 			
 			$inicio = ($total_de_resultados_por_pagina * $pagina) - $total_de_resultados_por_pagina; 
 			
-			$query = "SELECT * FROM agendamentos WHERE (escola = $usuario AND excluido = 0) LIMIT $inicio, $total_de_resultados_por_pagina"; 			
+			$query = "SELECT * FROM agendamentos WHERE (escola = $usuario AND excluido = 0) LIMIT $inicio, $total_de_resultados_por_pagina"; vez.
 			$result_query = mysqli_query($conn, $query);
 
 			while($row_agendamento = mysqli_fetch_assoc($result_query))
