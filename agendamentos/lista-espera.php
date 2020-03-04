@@ -23,10 +23,18 @@ if($ja_fez == 0)
 {
 	//$result_events = "INSERT INTO pedidos (evento, escola, turma, qtd_vagas) VALUES ('$id', '$escola', '$turma',  0)";
 	$result_events = "INSERT INTO lista_espera (evento, escola, turma, qtd_alunos_turma, avisado, confirmado, excluido) VALUES ('$id', '$escola', '$turma',  '$QTD_alunos', 0, 0, 0)";	
-	$resultado_events = mysqli_query($conn, $result_events);
-	
-	$_SESSION['msg'] = "<div class='alert alert-success' role='alert'> Você foi adicionado na Lista de Espera deste Evento! Em caso de desistencia para os agendamentos dele, você será informado. <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-	header("Location: t-c-agendamentos.php");
+	$resultado_events = mysqli_query($conn, $result_events);	
+
+	if($_SESSION['permissao'] == 3) // SE USUÁRIO FOR ESCOLA
+	{
+		$_SESSION['msg'] = "<div class='alert alert-success' role='alert'> Você foi adicionado na Lista de Espera deste Evento! Em caso de desistencia para os agendamentos dele, você será informado. <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+		header("Location: t-c-agendamentos.php");
+	}
+	else // SE USUÁRIO FOR FUNCIONÁRIO
+	{				
+		$_SESSION['funcionario_agendou'] = true;
+		header("Location: t-c-agendamentos.php");
+	}
 }
 else
 {
