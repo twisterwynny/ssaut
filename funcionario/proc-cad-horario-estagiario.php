@@ -46,30 +46,30 @@ if(!empty($start) && !empty($end) && !empty($estagiario))
 			{
 				require_once("repete-cad-horario-estagiario.php");
 				$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>Seu Horário foi Registrado com Sucesso! <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-				header("Location: t-c-horarios-eventos-funcionario.php");
+				header("Location: t-c-gerir-estagiarios.php");
 			}
 			else
 			{
 				$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>ERRO! seu horário NÃO foi registrado.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-				header("Location: t-c-horarios-eventos-funcionario.php");
+				header("Location: t-c-gerir-estagiarios.php");
 			}
 		}
 		else
 		{
 			$_SESSION['msg'] = "<div class='alert alert-warning' role='alert'>Esta Data e Horário já foi registrado. Tente outra Data e Hora diferentes. <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-			header("Location: t-c-horarios-eventos-funcionario.php");
+			header("Location: t-c-gerir-estagiarios.php");
 		}
 	}
 	else
 	{
 		$_SESSION['msg'] = "<div class='alert alert-warning' role='alert'> a Data/Hora do FIM do evento precisa ser depois ou maior do que a Data/Hora do INICIO do evento. <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-		header("Location: t-c-horarios-eventos-funcionario.php");
+		header("Location: t-c-gerir-estagiarios.php");
 	}			
 }
 else
 {
 	$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>ERRO! seu horário NÃO foi registrado<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-	header("Location: t-c-horarios-eventos-funcionario.php");
+	header("Location: t-c-gerir-estagiarios.php");
 }
 
 ?>
