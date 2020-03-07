@@ -13,6 +13,7 @@ session_start();
 		<a href="form-cad-usuario.php">Cadastrar Usuário</a><br>
 		<a href="form-listar-usuarios.php">Listar Usuários</a><br>
 		<a href="form-buscar-usuarios.php">Buscar Usuários</a><br>
+		<a href="t-c-gerir-estagiarios.php">Gerir Horários dos Estagiários</a><br>
 		<h1>Cadastrar Usuário</h1>
 
 		<?php
