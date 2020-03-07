@@ -15,6 +15,9 @@ $color = $_SESSION['color'];
 $id_fim_semestre = $_SESSION['id_fim_semestre'];
 $fim_semestre = $_SESSION['fim_semestre'];
 
+$id = $_SESSION['id'];
+$temas = $_SESSION['temas'];
+
 $separa = explode(" ", $fim_semestre);	//DEIXAR SÓ A DATA PORQUE NA COMPARAÇÃO DE HORAS E MINUTOS PODE NÃO PASSAR NA CONDIÇÃO MESMO ESTANDO TUDO CERTO.
 list($data_fim_semestre, $hora_fim_semestre) = $separa;
 
@@ -26,7 +29,7 @@ while(strtotime($data_atual_start) <= strtotime($fim_semestre))
 
 function repeteEventos ()
 {
-	global $data_atual_start, $data_atual_end, $data_fim_semestre, $id_fim_semestre, $title, $descricao, $vagas, $color, $conn; // VARIÁVEIS GLOBAIS
+	global $data_atual_start, $data_atual_end, $data_fim_semestre, $id_fim_semestre, $title, $descricao, $vagas, $color, $conn, $id, $temas; // VARIÁVEIS GLOBAIS
 
 	$proxima_data = strtotime($data_atual_start . "+7 days"); 
 	//$to_sql_datetime_start = date('Y-m-d H:i:s', $proxima_data);// TO MYSQL DATETIME FORMAT			
@@ -45,7 +48,16 @@ function repeteEventos ()
 	if (strtotime($data) <= strtotime($data_fim_semestre)) //DEIXAR SÓ A DATA PORQUE NA COMPARAÇÃO DE HORAS E MINUTOS PODE NÃO PASSAR NA CONDIÇÃO MESMO ESTANDO TUDO CERTO.
 	{			
 		$query = "UPDATE eventos SET title='$title', descricao='$descricao', vagas='$vagas', color='$color' WHERE (start = '$to_sql_datetime_start' AND id <> '$id_fim_semestre')";
-		$resultado = mysqli_query($conn, $query);				
+		$resultado = mysqli_query($conn, $query);
+
+		$qtd = count($temas);
+		for ($i=0; $i < $qtd; $i++)
+		{
+			$tema_id = $temas[$i];
+			$query = "INSERT INTO temas_do_evento (evento, tema) VALUES ('$id', '$tema_id')";
+			$result_query = mysqli_query($conn, $query);
+		}
+		$id++;
 		repeteEventos ();
 	}
 	//buscar no BD se tem o horario cadastrado, caso não tenha ele cadastra, e quando for repetir para inserir as datas futuras vai tudo cair no else. 
