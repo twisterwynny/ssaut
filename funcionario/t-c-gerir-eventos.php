@@ -49,7 +49,21 @@ $i = 0;
 		<script src='../js/bootstrap.min.js'></script>
 		<script src='../js/moment.min.js'></script>
 		<script src='../js/fullcalendar.min.js'></script>
-		<script src='../locale/pt-br.js'></script>		
+		<script src='../locale/pt-br.js'></script>	
+		<script>
+			function marcar_todos()
+			{
+				for (i=0; i<document.formmain.elements.length; i++)
+					if(document.formmain.elements[i].type == "checkbox")	
+						document.formmain.elements[i].checked=1
+			}
+			function desmarcar_todos()
+			{
+				for (i=0; i<document.formmain.elements.length; i++)
+					if(document.formmain.elements[i].type == "checkbox")	
+						document.formmain.elements[i].checked=0
+			}
+		</script>	
 		<script>
 			$(document).ready(function()
 			{
@@ -189,8 +203,10 @@ $i = 0;
 								<dd id="estagiario"></dd>
 								<dt>NOME do estagiário: </dt>
 								<dd id="nome_estagiario"></dd>
-								<dt>TEMA: </dt>
+								<dt>Título: </dt>
 								<dd id="title"></dd>
+								<dt>TEMA(S): </dt>
+								<dd id="temas"></dd>
 								<dt>Descrição: </dt>
 								<dd id="descricao"></dd>
 								<dt>quantidade VAGAS: </dt>
@@ -208,10 +224,10 @@ $i = 0;
 							</div>
 						</div>
 						<div class="form">
-							<form class="form-horizontal" method="POST" action="proc-edit-evento.php">
+							<form id="formmain" name="formmain" class="form-horizontal" method="POST" action="proc-edit-evento.php">
 								
 								<div class="form-group">
-									<label for="title" class="col-sm-2 control-label">TEMA: </label>
+									<label for="title" class="col-sm-2 control-label">Título: </label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" name="title" id="title" placeholder="Titulo do Evento">
 									</div>
@@ -251,6 +267,19 @@ $i = 0;
 										</select>
 									</div>
 								</div>
+
+								<div class="form-group">
+									<div class="row">
+										<div class="text-center">																	
+											<label> Defina o(s) Tema(s): </label><BR>
+											<a href="javascript:marcar_todos()">TODOS</a> ou <a href="javascript:desmarcar_todos()">NENHUM</a><BR>								 			
+							 				<?php
+											require_once("retorna-temas.php");//	<div class="col-sm-10">
+											?>
+										</div>
+									</div>
+								</div>
+
 								<!-- -->
 								<input type="hidden" class="form-control" name="id" id="id"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 								<input type="hidden" class="form-control" name="estagiario" id="estagiario">  <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
