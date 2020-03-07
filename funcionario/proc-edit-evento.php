@@ -13,6 +13,9 @@ $end = filter_input(INPUT_POST, 'end', FILTER_SANITIZE_STRING);
 $estagiario = filter_input(INPUT_POST, 'estagiario', FILTER_SANITIZE_NUMBER_INT);//ID do estagiário
 $color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING);
 
+$temas = $_POST['tema'];
+//$temas = $_SESSION['temas'];
+
 $query = "SELECT id, start FROM eventos WHERE (estagiario = '$estagiario' AND title = 'Fim do Semestre')";
 $result_query = mysqli_query($conn, $query);
 $row = mysqli_fetch_array($result_query);
@@ -43,14 +46,26 @@ if(!empty($id) && !empty($title) && !empty($descricao) && !empty($vagas) && !emp
 	$end_sem_barra = $data_sem_barra . " " . $hora;
 	$_SESSION['end'] = $end_sem_barra;		
 		
-	$result_events = "UPDATE eventos SET title='$title', descricao='$descricao', vagas='$vagas', color='$color' WHERE (start = '$start_sem_barra' AND id <> '$id_fim_semestre')"; //SE FOR != VAI DAR ERRO. OLHE ABAIXO A RAZÃO:
+	$query = "UPDATE eventos SET title='$title', descricao='$descricao', vagas='$vagas', color='$color' WHERE (start = '$start_sem_barra' AND id <> '$id_fim_semestre')"; //SE FOR != VAI DAR ERRO. OLHE ABAIXO A RAZÃO:
 	// A CLAUSULA DENTRO DOS PARANTESES CORRESPONDE A QUALQUER CHAVE PRIMARIA. SEM ELA ACONTECE ERRO 1175 PARA MUAR SAFE UPDATES NAS PREFERENCIAS DO BD.
 	//UPDATE events SET title ='NOVO', vagas =777, color = "#1C1C1C" WHERE (start = "2020-01-28 22:00:00" AND id_evento <> 0);
-	$resultado_events = mysqli_query($conn, $result_events);	
-	
+	$result_query = mysqli_query($conn, $query);
+
+	$qtd = count($temas);
+	for ($i=0; $i < $qtd; $i++)
+	{
+		$tema_id = $temas[$i];
+		$query = "INSERT INTO temas_do_evento (evento, tema) VALUES ('$id', '$tema_id')";
+		$result_query = mysqli_query($conn, $query);
+	}	
+
 	//Verificar se alterou no banco de dados através "mysqli_affected_rows"
 	if(mysqli_affected_rows($conn))
 	{
+		$id++;
+		$_SESSION['id'] = $id;
+		$_SESSION['temas'] = $temas;
+
 		require_once("repete-edit-evento.php");		
 		$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>O Evento editado com Sucesso<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";				
 		header("Location: t-c-gerir-eventos.php");
