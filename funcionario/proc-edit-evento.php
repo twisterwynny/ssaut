@@ -51,20 +51,20 @@ if(!empty($id) && !empty($title) && !empty($descricao) && !empty($vagas) && !emp
 	//Verificar se alterou no banco de dados através "mysqli_affected_rows"
 	if(mysqli_affected_rows($conn))
 	{
-		require_once("repete-edit-evento-funcionario.php");		
+		require_once("repete-edit-evento.php");		
 		$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>O Evento editado com Sucesso<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";				
-		header("Location: t-c-horarios-eventos-funcionario.php");
+		header("Location: t-c-gerir-eventos.php");
 	}
 	else
 	{
 		$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>UM Erro ao editar o evento <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-		header("Location: t-c-horarios-eventos-funcionario.php");
+		header("Location: t-c-gerir-eventos.php");
 	}	
 }
 else
 {
 	$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>DOIS Erro ao editar o evento <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-	header("Location: t-c-horarios-eventos-funcionario.php");
+	header("Location: t-c-gerir-eventos.php");
 }
 
 ?>
