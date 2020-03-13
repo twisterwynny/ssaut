@@ -1,5 +1,6 @@
 <?php
 session_start();
+header("Content-type: text/html; charset=utf-8");
 include_once("../db/conexao.php");
 $query = "SELECT id, estagiario, title, descricao, vagas, start, end, color FROM eventos";
 $result_query = mysqli_query($conn, $query);
@@ -49,21 +50,7 @@ $i = 0;
 		<script src='../js/bootstrap.min.js'></script>
 		<script src='../js/moment.min.js'></script>
 		<script src='../js/fullcalendar.min.js'></script>
-		<script src='../locale/pt-br.js'></script>	
-		<script>
-			function marcar_todos()
-			{
-				for (i=0; i<document.formmain.elements.length; i++)
-					if(document.formmain.elements[i].type == "checkbox")	
-						document.formmain.elements[i].checked=1
-			}
-			function desmarcar_todos()
-			{
-				for (i=0; i<document.formmain.elements.length; i++)
-					if(document.formmain.elements[i].type == "checkbox")	
-						document.formmain.elements[i].checked=0
-			}
-		</script>	
+		<script src='../locale/pt-br.js'></script>			
 		<script>
 			$(document).ready(function()
 			{
@@ -98,6 +85,7 @@ $i = 0;
 						$('#ver #start').val(event.start.format('DD/MM/YYYY HH:mm:ss'));
 						$('#ver #end').text(event.end.format('DD/MM/YYYY HH:mm:ss'));
 						$('#ver #end').val(event.end.format('DD/MM/YYYY HH:mm:ss'));
+						$('#ver #color').text(event.color);
 						$('#ver #color').val(event.color);										
 						$('#ver').modal('show');															
 						return false;							
@@ -171,8 +159,7 @@ $i = 0;
 						<font color="white">
 							<h1 class="text-center"> Gerenciar Eventos </h1>
 						</font>
-						<BR>
-						
+						<BR>	
 						<?php						
 						if(isset($_SESSION['msg']))
 						{
@@ -180,7 +167,6 @@ $i = 0;
 							unset($_SESSION['msg']);
 						}						
 						?>
-
 						<div id='calendar'></div>
 					</div>
 				</div>
@@ -196,119 +182,134 @@ $i = 0;
 					</div>
 					<div class="modal-body">
 						<div class="ver">
-							<dl class="dl-horizontal">
-								<dt>ID do Evento: </dt>
-								<dd id="id"></dd>
-								<dt>ID Estagiário: </dt>
-								<dd id="estagiario"></dd>
-								<dt>NOME do estagiário: </dt>
-								<dd id="nome_estagiario"></dd>
-								<dt>Título: </dt>
-								<dd id="title"></dd>
-								<dt>TEMA(S): </dt>
-								<dd id="temas"></dd>
-								<dt>Descrição: </dt>
-								<dd id="descricao"></dd>
-								<dt>quantidade VAGAS: </dt>
-								<dd id="vagas"></dd>
-								<dt>Inicio do Evento: </dt>
-								<dd id="start"></dd>
-								<dt>Fim do Evento: </dt>
-								<dd id="end"></dd>																
-							</dl>
-							<div class="form-group">
-								<div class="text-center">
-									<button type="button" class="btn btn-cancelar-ver-evento btn-secondary" data-dismiss="modal">Cancelar</button>
-									<button class="btn btn-editar-evento btn-primary">Editar</button>
-								</div>
-							</div>
-						</div>
-						<div class="form">
-							<form id="formmain" name="formmain" class="form-horizontal" method="POST" action="proc-edit-evento.php">
-								
-								<div class="form-group">
-									<label for="title" class="col-sm-2 control-label">Título: </label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" name="title" id="title" placeholder="Titulo do Evento">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="descricao" class="col-sm-2 control-label">Descrição: </label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" name="descricao" id="descricao" placeholder="Descrição do Evento">
-									</div>
-								</div>
-
-								<div class="form-group">									
-									<label for="vagas" class="col-sm-2 control-label">VAGAS: </label>
-									<div class="col-sm-5">
-										<input type="text" class="form-control" name="vagas" id="vagas" placeholder="digite a quantidade de vagas">
-									</div>								
-								<!--  -->
-								<!--  -->								
-									<label for="color" class="col-sm-1 control-label">Cor: </label>
-									<div class="col-sm-4">
-										<select name="color" class="form-control" id="color">
-											<option value="">Selecione</option>
-											<option style="color:#FF69B4;" value="#FF69B4">HotPink</option>
-											<option style="color:#FF0000;" value="#FF0000">Red</option>
-											<option style="color:#FF6347;" value="#FF6347">Orange</option>
-											<option style="color:#FFD700;" value="#FFD700">Yellow</option>
-											<option style="color:#32CD32;" value="#32CD32">LimeGreen</option>
-											<option style="color:#006400;" value="#006400">Green</option>
-											<option style="color:#00FFFF;" value="#00FFFF">Cyan</option>
-											<option style="color:#0000FF;" value="#0000FF">Blue</option>											
-											<option style="color:#8B4513;" value="#8B4513">SaddleBrown</option>	
-											<option style="color:#808080;" value="#808080">Gray</option>	
-											<option style="color:#000000;" value="#000000">Black</option>	
-											<option style="color:#9370DB;" value="#9370DB">MediumPurple</option>	
-											<option style="color:#4B0082;" value="#4B0082">Indigo</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="row">
-										<div class="text-center">																	
-											<label> Defina o(s) Tema(s): </label><BR>
-											<a href="javascript:marcar_todos()">TODOS</a> ou <a href="javascript:desmarcar_todos()">NENHUM</a><BR>								 			
-							 				<?php
-											require_once("retorna-temas.php");//	<div class="col-sm-10">
-											?>
-										</div>
-									</div>
-								</div>
-
-								<!-- -->
+							<!-- <form id="ver-evento" name="ver-evento" class="form-horizontal" method="POST" action="form-editar-evento.php"> -->
+							<form id="ver-evento" name="ver-evento" class="form-horizontal" method="POST" action="action.php">
+								<dl class="dl-horizontal">
+									<dt>ID do Evento: </dt>
+									<dd id="id"></dd>
+									<dt>ID Estagiário: </dt>
+									<dd id="estagiario"></dd>
+									<dt>NOME do estagiário: </dt>
+									<dd id="nome_estagiario"></dd>
+									<dt>Título: </dt>
+									<dd id="title"></dd>									
+									<dt>Descrição: </dt>
+									<dd id="descricao"></dd>
+									<dt>quantidade VAGAS: </dt>
+									<dd id="vagas"></dd>
+									<dt>Inicio do Evento: </dt>
+									<dd id="start"></dd>
+									<dt>Fim do Evento: </dt>
+									<dd id="end"></dd>																
+								</dl>
 								<input type="hidden" class="form-control" name="id" id="id"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
-								<input type="hidden" class="form-control" name="estagiario" id="estagiario">  <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
-								<input type="hidden" class="form-control" name="start" id="start">  <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
-								<input type="hidden" class="form-control" name="end" id="end">  <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
-								<!-- -->
+								<input type="hidden" class="form-control" name="estagiario" id="estagiario"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<input type="hidden" class="form-control" name="nome_estagiario" id="nome_estagiario"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<input type="hidden" class="form-control" name="title" id="title"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<input type="hidden" class="form-control" name="descricao" id="descricao"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<input type="hidden" class="form-control" name="vagas" id="vagas"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<input type="hidden" class="form-control" name="start" id="start"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<input type="hidden" class="form-control" name="end" id="end"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<input type="hidden" class="form-control" name="color" id="color"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 								<div class="form-group">
 									<div class="text-center">
-										<button type="button" class="btn btn-cancela-editar-evento btn-secondary">Cancelar</button>
-										<button type="submit" class="btn btn-success">Salvar Alterações</button>
+										<button type="button" class="btn btn-cancelar-ver-evento btn-secondary" data-dismiss="modal">Cancelar</button>
+										<button type="submit" class="btn btn-editar-evento btn-success" name="e">Editar</button>
+										<button type="submit" class="btn btn-mais-info btn-primary" name="i">Mais Informações</button>
 									</div>
 								</div>
-							</form>						
-						</div>
+							</form>
+						</div>						
 					</div>
 				</div>
 			</div>
-		</div>			
-		<script>
-			$('.btn-editar-evento').on("click", function()
+		</div>	
+
+		<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center" id="myModalLabel">Informações Adicionais</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                        $nomes_dos_temas = $_SESSION['nomes_dos_temas'];
+                        $nomes_das_exposicoes = $_SESSION['nomes_das_exposicoes'];   
+                        //echo "TEMAS:<BR>";	<label for="title">Título: </label>
+                        ?>
+                        <label>TEMA(S): </label><BR>
+                        <?php
+                        foreach ($nomes_dos_temas as $key => $value)
+                        {
+                        	echo "$value<BR>";
+                        }
+                        //echo "EXPOSIÇÕES:<BR>";	<label for="title">Título: </label>
+                        ?>
+                        <label>EXPOSIÇÕES: </label><BR>
+                        <?php
+                        foreach ($nomes_das_exposicoes as $key => $value)
+                        {
+                        	echo "$value<BR>";
+                        }
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                    	<div class="text-center">
+	                        <!-- <a href="pagar.php"><button type="button" class="btn btn-primary">Pagar Agora</button></a> -->
+	                        <button type="button" class="btn btn-fechar-mais-info-evento btn-secondary" data-dismiss="modal">FECHAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<?php
+        if (isset($_SESSION['i']))
+        {
+            ?>
+            <script>
+                $(document).ready(function()
+                {
+                    $('#info').modal('show');
+                });
+            </script>
+        <?php
+        unset($_SESSION['i']); // POR SEGURANÇA        
+        }
+        ?>
+        <script>			
+			$('.btn-fechar-mais-info-evento').on("click", function()
 			{
-				$('.form').slideToggle();
-				$('.ver').slideToggle();
+				var id = "<?php echo $_SESSION['id'];?>"
+				var estagiario = "<?php echo $_SESSION['estagiario'];?>"
+				var nome_estagiario = "<?php echo $_SESSION['nome_estagiario'];?>"
+				var title = "<?php echo $_SESSION['title'];?>"
+				var descricao = "<?php echo $_SESSION['descricao'];?>"
+				var vagas = "<?php echo $_SESSION['vagas'];?>"
+				var start = "<?php echo $_SESSION['start'];?>"
+				var end = "<?php echo $_SESSION['end'];?>"
+				var color = "<?php echo $_SESSION['color'];?>"
+				$('#ver #id').text(id);
+				$('#ver #id').val(id);
+				$('#ver #estagiario').text(estagiario);
+				$('#ver #estagiario').val(estagiario);
+				$('#ver #nome_estagiario').text(nome_estagiario);
+				$('#ver #nome_estagiario').val(nome_estagiario);				
+				$('#ver #title').text(title);
+				$('#ver #title').val(title);
+				$('#ver #descricao').text(descricao);
+				$('#ver #descricao').val(descricao);
+				$('#ver #vagas').text(vagas);
+				$('#ver #vagas').val(vagas);
+				$('#ver #start').text(start);
+				$('#ver #start').val(start);
+				$('#ver #end').text(end);
+				$('#ver #end').val(end);
+				$('#ver #color').text(color);
+				$('#ver #color').val(color);
+				$('#ver').modal('show');
 			});
-			$('.btn-cancela-editar-evento').on("click", function()
-			{
-				$('.ver').slideToggle();
-				$('.form').slideToggle();
-			});	
 		</script>
 	</body>
 </html>
