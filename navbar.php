@@ -47,7 +47,7 @@
                     else if ($_SESSION['permissao'] == 2) // FUNCIONÁRIO
                     {                        
                         //echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='funcionario/t-c-horarios-eventos-funcionario.php' role='button'>Gerir Eventos e Horários</a> </li>";
-                        echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='funcionario/t-c-gerir-eventos.php' role='button'>Gerir Eeventos</a> </li>";
+                        echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='funcionario/gerir-eventos.php' role='button'>Gerir Eeventos</a> </li>";
                         //echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='funcionario/t-c-funcionario.php' role='button'>Gerenciar Eventos</a> </li>";
                         //echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='estagiario/form-escolher-estagiario.php' role='button'>Gerenciar Horários</a> </li>";
                         echo "<li class='nav-item  mr-2 '> <a class='btn btn-outline-light' href='funcionario/gerir-usuarios.php' role='button'>Gerir Usuários</a> </li>";
