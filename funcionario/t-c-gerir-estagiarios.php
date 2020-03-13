@@ -197,7 +197,7 @@ $i = 0;
 							<form class="form-horizontal" method="POST" action="proc-edit-horario-estagiario.php">
 								
 								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-6 control-label"> Data e Hora do Início </label>
+									<label for="inputEmail3" class="col-sm-1 control-label"> Data e Hora do Início </label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="start" id="start" onKeyPress="DataHora(event, this)">
 									</div>
