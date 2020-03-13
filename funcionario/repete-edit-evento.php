@@ -1,7 +1,6 @@
 <?php
-
+header("Content-type: text/html; charset=utf-8");
 // IDEIA: UMA TELA SÓ PRA SELECIONAR A DATA DO FIM DO SEMESTRE E OUTRA TELA FAZ O CADASTRO E AS REPETIÇÕES.
-
 include_once("../db/conexao.php");
 
 $data_atual_start = $_SESSION['start'];	
@@ -49,6 +48,15 @@ function repeteEventos ()
 	{			
 		$query = "UPDATE eventos SET title='$title', descricao='$descricao', vagas='$vagas', color='$color' WHERE (start = '$to_sql_datetime_start' AND id <> '$id_fim_semestre')";
 		$resultado = mysqli_query($conn, $query);
+
+		$query = "SELECT tema FROM temas_do_evento WHERE evento ='$id'";
+		$result_query = mysqli_query($conn, $query);
+
+		if (mysqli_affected_rows($conn))
+		{
+			$query = "DELETE FROM temas_do_evento WHERE evento ='$id'";
+			$result_query = mysqli_query($conn, $query);
+		}
 
 		$qtd = count($temas);
 		for ($i=0; $i < $qtd; $i++)
