@@ -9,17 +9,17 @@ $_SESSION['result_search'] = $rs;
 if ($rs == (-1))
 {
 	//echo "ACONTENDEU UM ERRO NA BUSCA";
-	$_SESSION['result_search'] = $rs;
+	//$_SESSION['result_search'] = $rs;
 }
 elseif ($rs == 0)
 {
 	//echo "NÃO EXISTEM AGENDAMENTOS PARA ESTE EVENTO";
-	$_SESSION['result_search'] = $rs;
+	//$_SESSION['result_search'] = $rs;
 
 }
 else
 {
-	$_SESSION['result_search'] = $rs;
+	//$_SESSION['result_search'] = $rs;
 	$a_ids_agendamentos = array();
 	$a_escolas = array();
 	$a_turmas = array();

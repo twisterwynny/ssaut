@@ -55,14 +55,8 @@ $result_query = mysqli_query($conn, $query);
 						$('#visualizar').modal('show');
 						return false;
 					},					
-					selectable: true,
-					selectHelper: true,
-					select: function(start, end)
-					{
-						$('#cadastrar #start').val(moment(start).format('DD/MM/YYYY HH:mm:ss'));
-						$('#cadastrar #end').val(moment(end).format('DD/MM/YYYY HH:mm:ss'));
-						$('#cadastrar').modal('show');						
-					},
+					selectable: false,
+					selectHelper: false,					
 					events:
 					[
 						<?php
@@ -171,41 +165,7 @@ $result_query = mysqli_query($conn, $query);
 				</div>
 			</div>
 		</div>
-		<!--
-		<div class="modal fade" id="cadastrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title text-center"> Cadastrar Seus Horários </h4>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal" method="POST" action="proc-cad-evento-estagiario.php">
-
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label"> Data e Hora de Início </label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" name="start" id="start" onKeyPress="DataHora(event, this)">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label"> Data e Hora do Fim </label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" name="end" id="end" onKeyPress="DataHora(event, this)">
-								</div>
-							</div>	
-
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<button type="submit" class="btn btn-success">ADICIONAR</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		-->
+		
 		<div class="modal fade" id="ver_agendamentos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -241,7 +201,7 @@ $result_query = mysqli_query($conn, $query);
 									for ($i=0; $i < $qtd_A; $i++)
 									{ 
 										?>
-										<option value="<?php echo $a_turmas[$i]; ?>"> <?php echo "Escola: " . $a_escolas[$i] . " Turma: " . $a_turmas[$i] ?></option>
+										<option value="<?php echo $a_ids_A[$i]; ?>"> <?php echo "Escola: " . $a_escolas[$i] . " Turma: " . $a_turmas[$i] ?></option>
 										<?php
 									}									
 									?>
