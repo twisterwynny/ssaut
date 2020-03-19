@@ -46,7 +46,7 @@ $i = 0;
 		<script src='../js/bootstrap.min.js'></script>
 		<script src='../js/moment.min.js'></script>
 	</head>
-	<body>		
+	<body onload="habilitacao()">		
 		<BR>
 		<form id="editarevento" name="editarevento" method="POST" action="proc-diario.php">
 			<?php			
@@ -104,42 +104,128 @@ $i = 0;
 				next($a_nomes_alunos);
 			}
 			$_SESSION['a_ids_alunos'] = $a_ids_alunos;
-			?>
-			<BR>	
-			<label>A Visita foi Realizada?</label>			
-			<input type="radio" id="s" name="realizada" value="S" onClick="habilitacao()" required=""> SIM                        
-            <input type="radio" id="i" name="realizada" value="I" onClick="habilitacao()" required="">foi interrompida
-            <input type="radio" id="n" name="realizada" value="N" onClick="habilitacao()" required="">NÃO
-            <BR>
+
+			$query = "SELECT realizada, observacoes FROM visitas WHERE (agendamento ='$agendamento')";
+			$result_query = mysqli_query($conn, $query);
+			$rs = mysqli_affected_rows($conn);
+			if ($rs == (-1))
+			{
+				//echo "ACONTENDEU UM ERRO NA BUSCA";
+			}
+			elseif ($rs == 0)
+			{
+				?>			
+				<BR>	
+				<label>A Visita foi Realizada?</label>			
+				<input type="radio" id="s" name="realizada" value="S" onClick="habilitacao()" required=""> SIM                        
+	            <input type="radio" id="i" name="realizada" value="I" onClick="habilitacao()" required="">foi interrompida
+	            <input type="radio" id="n" name="realizada" value="N" onClick="habilitacao()" required="">NÃO
+	            <BR>
+	        <?php
+	    	}
+	    	else
+	    	{
+	    		$row = mysqli_fetch_array($result_query);
+				if (0 == strcmp($row['realizada'], "S"))
+				{
+	    			?>
+	    			<BR>	
+					<label>A Visita foi Realizada?</label>			
+					<input type="radio" id="s" name="realizada" value="S" onClick="habilitacao()" required="" checked="" > SIM                        
+		            <input type="radio" id="i" name="realizada" value="I" onClick="habilitacao()" required="">foi interrompida
+		            <input type="radio" id="n" name="realizada" value="N" onClick="habilitacao()" required="">NÃO
+		            <BR>
+		            <?php
+	    		}
+	    		elseif (0 == strcmp($row['realizada'], "N"))
+	    		{
+	    			?>
+	    			<BR>	
+					<label>A Visita foi Realizada?</label>			
+					<input type="radio" id="s" name="realizada" value="S" onClick="habilitacao()" required="" > SIM                        
+		            <input type="radio" id="i" name="realizada" value="I" onClick="habilitacao()" required="">foi interrompida
+		            <input type="radio" id="n" name="realizada" value="N" onClick="habilitacao()" required="" checked="">NÃO
+		            <BR>
+		            <?php
+	    		}
+	    		else
+	    		{
+	    			?>
+	    			<BR>	
+					<label>A Visita foi Realizada?</label>			
+					<input type="radio" id="s" name="realizada" value="S" onClick="habilitacao()" required="" > SIM                        
+		            <input type="radio" id="i" name="realizada" value="I" onClick="habilitacao()" required="" checked="">foi interrompida
+		            <input type="radio" id="n" name="realizada" value="N" onClick="habilitacao()" required="" >NÃO
+		            <BR>
+		            <?php
+	    		}
+	    	}
+	        ?>
             <font color="red"><B>
             	<label id="frase" name="frase" hidden="" >INFORME OS MOTIVOS: </label>
             </B></font>
             <BR>
-            <textarea name="detalhes" id="detalhes" rows="5" cols="50" disabled="" required=""></textarea>
+            <textarea name="observacoes" id="observacoes" rows="5" cols="50" disabled="" required=""></textarea>
             <BR>
 			<input type="hidden" class="form-control" name="escola" id="escola" value="<?php echo "$escola";?>">
 			<input type="hidden" class="form-control" name="turma" id="turma" value="<?php echo "$turma";?>">
 			<a href="t-c-estagiario.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
 			<button type="submit" class="btn btn-success">Salvar Alterações</button>								
-		</form>								
+		</form>			
+
 		<script language="javascript">
 			function habilitacao()
 			{
 				if(document.getElementById('i').checked == true)
 				{
 					document.getElementById('frase').hidden = false;						
-					document.getElementById('detalhes').disabled = false;					
+					document.getElementById('observacoes').disabled = false;					
 					//document.getElementById('frase').disabled = false;						
 					//document.getElementById("frase").style.visibility = 'visible';
 				}
 				if(document.getElementById('i').checked == false)
 				{					
 					document.getElementById('frase').hidden = true;						
-					document.getElementById('detalhes').disabled = true;
+					document.getElementById('observacoes').disabled = true;
 					//document.getElementById('frase').disabled = true;					
 					//document.getElementById("frase").style.visibility = 'hidden';
 				}
 			}
 		</script>
+		<?php
+		if (0 == strcmp($row['realizada'], "I"))
+		{
+			$observacoes = $row['observacoes'];
+
+			$ac = str_split($observacoes);
+			$sc = "";
+			foreach ($ac as $key => $value)
+			{
+				if (ord($ac[$key]) != 13)
+				{
+					if (ord($ac[$key]) != 10)
+					{			
+						$sc .= $value;
+					}
+					else
+					{
+						$sc .= "\\n";			
+					}
+				}
+				else
+				{
+					$sc .= "\\r";		
+				}
+			}
+
+		}
+		?>
+		<script>
+	    	$(function()
+	    	{
+			   var observacoes = "<?php echo $sc; ?>";
+			   $("#observacoes").val(observacoes);
+			});					
+	    </script>
 	</body>
 </html>	

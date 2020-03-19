@@ -2,7 +2,8 @@
 session_start();
 include_once("../db/conexao.php");
 $id = $_SESSION['usuarioId'];
-$query = "SELECT id, estagiario, title, descricao, vagas, start, end, color FROM eventos WHERE (estagiario='$id')";
+//$query = "SELECT id, estagiario, title, descricao, vagas, start, end, color FROM eventos WHERE (estagiario='$id')";
+$query = "SELECT id, estagiario, title, vagas, start, end, color FROM eventos WHERE (estagiario='$id')";
 $result_query = mysqli_query($conn, $query);
 ?>
 
@@ -45,7 +46,7 @@ $result_query = mysqli_query($conn, $query);
 						$('#visualizar #estagiario').text(event.estagiario);
 						$('#visualizar #estagiario').val(event.estagiario);
 						$('#visualizar #title').text(event.title);
-						$('#visualizar #descricao').text(event.descricao);
+						//$('#visualizar #descricao').text(event.descricao);
 						$('#visualizar #vagas').text(event.vagas);
 						$('#visualizar #start').text(event.start.format('DD/MM/YYYY HH:mm:ss'));
 						$('#visualizar #start').val(event.start.format('DD/MM/YYYY HH:mm:ss'));
@@ -67,7 +68,7 @@ $result_query = mysqli_query($conn, $query);
 							id: '<?php echo $row['id']; ?>',
 							estagiario: '<?php echo $row['estagiario']; ?>',
 							title: '<?php echo $row['title']; ?>',
-							descricao: '<?php echo $row['descricao']; ?>',
+							//descricao: '<?php // echo $row['descricao']; ?>',
 							vagas: '<?php echo $row['vagas']; ?>',
 							start: '<?php echo $row['start']; ?>',
 							end: '<?php echo $row['end']; ?>',
@@ -157,8 +158,10 @@ $result_query = mysqli_query($conn, $query);
 								<dd id="end"></dd>								
 							</dl>
 							<input type="hidden" class="form-control" name="id" id="id">							
-							<button type="button" class="btn btn-canc-buscar btn-secondary" data-dismiss="modal">cancelar</button>
-							<button type="submit" class="btn btn-success">BUSCAR</button>
+							<div class="text-center" >
+								<button type="button" class="btn btn-canc-buscar btn-secondary" data-dismiss="modal">cancelar</button>
+								<button type="submit" class="btn btn-success">BUSCAR</button>
+							</div>
 						</div>
 						</form>						
 					</div>
@@ -188,29 +191,36 @@ $result_query = mysqli_query($conn, $query);
 							{
 								$a_ids_A = array();
 								$a_escolas = array();
-								$a_turmas = array();							
+								$a_turmas = array();
+								$a_dados_turmas = array();
 								$a_ids_A = $_SESSION['a_ids_agendamentos'];
 								$a_escolas = $_SESSION['a_escolas'];
+								$a_nomes_escolas = $_SESSION['a_nomes_escolas'];
 								$a_turmas = $_SESSION['a_turmas'];
+								$a_dados_turmas = $_SESSION['a_dados_turmas'];
 								$qtd_A = count($a_ids_A);	
 								?>
-								<label>Escolha o Agendamento: </label>
+								<div class="text-center" >
+								<label>Escolha o Agendamento: </label><BR>
 								<select name="agendamentos" id="agendamentos" required="">
 									<option value="">Selecione</option>
 									<?php
 									for ($i=0; $i < $qtd_A; $i++)
 									{ 
 										?>
-										<option value="<?php echo $a_ids_A[$i]; ?>"> <?php echo "Escola: " . $a_escolas[$i] . " Turma: " . $a_turmas[$i] ?></option>
+										<option value="<?php echo $a_ids_A[$i]; ?>"> <?php echo "Escola: " . $a_nomes_escolas[$i] . " |" . " Turma: " . $a_dados_turmas[$i] ?></option>
 										<?php
 									}									
 									?>
 								</select><BR><BR>
 								<?php
 							}
-							?>							
-	                        <button type="button" class="btn btn-fechar-mais-info-evento btn-secondary" data-dismiss="modal">FECHAR</button>
-                        	<button type="submit" class="btn btn-success"id="print" >VER LISTA</button>
+							?>
+							</div>
+							<div class="text-center" >
+		                        <button type="button" class="btn btn-fechar-mais-info-evento btn-secondary" data-dismiss="modal">FECHAR</button>
+	                        	<button type="submit" class="btn btn-success"id="print" >VER LISTA</button>
+                        	</div>							
 						</form>
 						<?php
                         if ($_SESSION['result_search'] > 0)

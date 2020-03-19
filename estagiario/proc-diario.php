@@ -10,10 +10,10 @@ $escola = $_POST['escola'];
 $turma = $_POST['turma'];
 $realizada = $_POST['realizada'];
 //echo "$realizada<BR>";
-if (isset($_POST['detalhes']))
+if (isset($_POST['observacoes']))
 {
-	$detalhes = $_POST['detalhes'];
-	//echo "$detalhes<BR>";
+	$observacoes = $_POST['observacoes'];
+	//echo "$observacoes<BR>";
 }
 
 if(!empty($a_ids_alunos) && !empty($a_estado) && !empty($escola) && !empty($turma) && !empty($id_agendamento))
@@ -50,9 +50,9 @@ if(!empty($a_ids_alunos) && !empty($a_estado) && !empty($escola) && !empty($turm
 
     if ($ja_fez == 0)
     {
-    	if (isset($detalhes))
+    	if (isset($observacoes))
 	    {
-	    	$query = "INSERT INTO visitas (agendamento, realizada, observacoes) VALUES ('$id_agendamento', '$realizada', '$detalhes')";
+	    	$query = "INSERT INTO visitas (agendamento, realizada, observacoes) VALUES ('$id_agendamento', '$realizada', '$observacoes')";
     		$result_query = mysqli_query($conn, $query);
 	    }
 	    else
@@ -63,14 +63,14 @@ if(!empty($a_ids_alunos) && !empty($a_estado) && !empty($escola) && !empty($turm
     }
     else
     {
-    	if (isset($detalhes))
+    	if (isset($observacoes))
 	    {
-	    	$query = "UPDATE visitas SET realizada='$realizada', observacoes='$detalhes' WHERE (agendamento='$id_agendamento')";
+	    	$query = "UPDATE visitas SET realizada='$realizada', observacoes='$observacoes' WHERE (agendamento='$id_agendamento')";
     		$result_query = mysqli_query($conn, $query);
     	}
     	else
     	{
-    		$query = "UPDATE visitas SET realizada='$realizada' WHERE (agendamento='$id_agendamento')";
+    		$query = "UPDATE visitas SET realizada='$realizada', observacoes='' WHERE (agendamento='$id_agendamento')";
     		$result_query = mysqli_query($conn, $query);
     	}
     }
