@@ -2,12 +2,13 @@
 session_start();
 header("Content-type: text/html; charset=utf-8");
 include_once("../db/conexao.php");
-$query = "SELECT id, estagiario, title, descricao, vagas, start, end, color FROM eventos";
+//$query = "SELECT id, estagiario, title, descricao, vagas, start, end, color FROM eventos";
+$query = "SELECT id, estagiario, title, vagas, start, end, color FROM eventos";
 $result_query = mysqli_query($conn, $query);
 $a_ids = array();
 $a_estagiarios = array();
 $a_titles = array();
-$a_descricoes = array();
+//$a_descricoes = array();
 $a_vagas = array();
 $a_starts = array();
 $a_ends = array();
@@ -19,7 +20,7 @@ while($row_eventos = mysqli_fetch_assoc($result_query))
 	$a_ids[] = $row_eventos['id'];
 	$a_estagiarios[] = $row_eventos['estagiario'];
 	$a_titles[] = $row_eventos['title'];
-	$a_descricoes[] = $row_eventos['descricao'];
+	//$a_descricoes[] = $row_eventos['descricao'];
 	$a_vagas[] = $row_eventos['vagas'];
 	$a_starts[] = $row_eventos['start']; 	
 	$a_ends[] = $row_eventos['end']; 	
@@ -77,8 +78,8 @@ $i = 0;
 						$('#ver #nome_estagiario').val(event.nome_estagiario);
 						$('#ver #title').text(event.title);
 						$('#ver #title').val(event.title);
-						$('#ver #descricao').text(event.descricao);
-						$('#ver #descricao').val(event.descricao);
+						//$('#ver #descricao').text(event.descricao);
+						//$('#ver #descricao').val(event.descricao);
 						$('#ver #vagas').text(event.vagas);
 						$('#ver #vagas').val(event.vagas);
 						$('#ver #start').text(event.start.format('DD/MM/YYYY HH:mm:ss'));
@@ -102,7 +103,7 @@ $i = 0;
 								id: '<?php echo $a_ids[$i]; ?>',
 								estagiario: '<?php echo $a_estagiarios[$i]; ?>',
 								title: '<?php echo $a_titles[$i]; ?>',
-								descricao: '<?php echo $a_descricoes[$i]; ?>',
+								//descricao: '<?php // echo $a_descricoes[$i]; ?>',
 								vagas: '<?php echo $a_vagas[$i]; ?>',
 								start: '<?php echo $a_starts[$i]; ?>',
 								end: '<?php echo $a_ends[$i]; ?>',																
@@ -193,8 +194,8 @@ $i = 0;
 									<dd id="nome_estagiario"></dd>
 									<dt>Título: </dt>
 									<dd id="title"></dd>									
-									<dt>Descrição: </dt>
-									<dd id="descricao"></dd>
+									<!-- <dt>Descrição: </dt>
+									<dd id="descricao"></dd> -->
 									<dt>quantidade VAGAS: </dt>
 									<dd id="vagas"></dd>
 									<dt>Inicio do Evento: </dt>
@@ -206,7 +207,7 @@ $i = 0;
 								<input type="hidden" class="form-control" name="estagiario" id="estagiario"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 								<input type="hidden" class="form-control" name="nome_estagiario" id="nome_estagiario"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 								<input type="hidden" class="form-control" name="title" id="title"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
-								<input type="hidden" class="form-control" name="descricao" id="descricao"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+								<!-- <input type="hidden" class="form-control" name="descricao" id="descricao">  PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 								<input type="hidden" class="form-control" name="vagas" id="vagas"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 								<input type="hidden" class="form-control" name="start" id="start"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 								<input type="hidden" class="form-control" name="end" id="end"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
@@ -234,10 +235,17 @@ $i = 0;
                     </div>
                     <div class="modal-body">
                         <?php
+                        $descricao = $_SESSION['descricao'];
                         $nomes_dos_temas = $_SESSION['nomes_dos_temas'];
                         $nomes_das_exposicoes = $_SESSION['nomes_das_exposicoes'];   
-                        //echo "TEMAS:<BR>";	<label for="title">Título: </label>
+                        //echo "TEMAS:<BR>";	<label for="title">Título: </label>                        
                         ?>
+                        <label>DESCRIÇÃO: </label><BR>
+                        <?php
+                        echo nl2br($descricao);
+                        //echo $descricao;
+                        ?>
+                        <BR><BR>
                         <label>TEMA(S): </label><BR>
                         <?php
                         foreach ($nomes_dos_temas as $key => $value)
@@ -246,6 +254,7 @@ $i = 0;
                         }
                         //echo "EXPOSIÇÕES:<BR>";	<label for="title">Título: </label>
                         ?>
+                        <BR><BR>
                         <label>EXPOSIÇÕES: </label><BR>
                         <?php
                         foreach ($nomes_das_exposicoes as $key => $value)
@@ -285,7 +294,7 @@ $i = 0;
 				var estagiario = "<?php echo $_SESSION['estagiario'];?>"
 				var nome_estagiario = "<?php echo $_SESSION['nome_estagiario'];?>"
 				var title = "<?php echo $_SESSION['title'];?>"
-				var descricao = "<?php echo $_SESSION['descricao'];?>"
+				//var descricao = "<?php // echo $_SESSION['descricao'];?>"
 				var vagas = "<?php echo $_SESSION['vagas'];?>"
 				var start = "<?php echo $_SESSION['start'];?>"
 				var end = "<?php echo $_SESSION['end'];?>"
@@ -298,8 +307,8 @@ $i = 0;
 				$('#ver #nome_estagiario').val(nome_estagiario);				
 				$('#ver #title').text(title);
 				$('#ver #title').val(title);
-				$('#ver #descricao').text(descricao);
-				$('#ver #descricao').val(descricao);
+				// $('#ver #descricao').text(descricao);
+				// $('#ver #descricao').val(descricao);
 				$('#ver #vagas').text(vagas);
 				$('#ver #vagas').val(vagas);
 				$('#ver #start').text(start);

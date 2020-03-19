@@ -12,6 +12,26 @@ $vagas = $_SESSION['vagas'];
 $start = $_SESSION['start'];
 $end = $_SESSION['end'];
 $color = $_SESSION['color'];
+$ac = str_split($descricao);
+$cs = "";
+foreach ($ac as $key => $value)
+{
+	if (ord($ac[$key]) != 13)
+	{
+		if (ord($ac[$key]) != 10)
+		{			
+			$cs .= $value;
+		}
+		else
+		{
+			$cs .= "\\n";			
+		}
+	}
+	else
+	{
+		$cs .= "\\r";		
+	}
+}
 /*  */
 ?>
 <!DOCTYPE html>
@@ -47,8 +67,7 @@ $color = $_SESSION['color'];
 				<label for="id">ID evento: </label> <?php echo $id;?>
 				<label>ID estagiário: </label> <?php echo $estagiario;?>
 				<BR>
-				<label>NOME estagiário: </label> <?php echo $nome_estagiario;?>
-				
+				<label>NOME estagiário: </label> <?php echo $nome_estagiario;?>				
 				<!-- <input type="text" readonly class="form-control-plaintext" placeholder="Input só de leitura, aqui..." size="2"> -->				
 				<div>				
 					<label for="title">Título: </label>				
@@ -107,23 +126,18 @@ $color = $_SESSION['color'];
             	<script>
 			    	$(function()
 			    	{
-					   var descricao = "<?php echo $descricao; ?>";
+					   var descricao = "<?php echo $cs; ?>";
 					   $("#descricao").val(descricao);
-					});
+					});					
+			    </script>
+			    <script>			    	
 					$(function()
 					{
 					   var color = "<?php echo $color; ?>";
 					   $("#color").val(color);
-					});
-					/*
-					$(function(){
-					   var valor = $("#descricao").val();
-					   alert(valor);
-					});
-					*/
+					});					
 			    </script>
-				<div>
-					<!-- <button type="button" class="btn btn-cancela-editar-evento btn-secondary">Cancelar</button> -->
+				<div>					
 					<a href="t-c-gerir-eventos.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
 					<button type="submit" class="btn btn-success">Salvar Alterações</button>					
 				</div>			

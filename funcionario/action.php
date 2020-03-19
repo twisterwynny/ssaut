@@ -7,11 +7,16 @@ $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);//ID do evento
 $estagiario = filter_input(INPUT_POST, 'estagiario', FILTER_SANITIZE_NUMBER_INT);//estagiario
 $nome_estagiario = filter_input(INPUT_POST, 'nome_estagiario', FILTER_SANITIZE_STRING);//estagiario
 $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-$descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
+//$descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
 $vagas = filter_input(INPUT_POST, 'vagas', FILTER_SANITIZE_NUMBER_INT);
 $start = filter_input(INPUT_POST, 'start', FILTER_SANITIZE_STRING);
 $end = filter_input(INPUT_POST, 'end', FILTER_SANITIZE_STRING);
 $color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING);
+
+$query = "SELECT descricao FROM eventos WHERE id ='$id'";
+$result_query = mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result_query);
+$descricao = $row['descricao'];
 
 $_SESSION['id'] = $id;//ID do evento
 $_SESSION['estagiario'] = $estagiario;
