@@ -13,23 +13,23 @@ $start = $_SESSION['start'];
 $end = $_SESSION['end'];
 $color = $_SESSION['color'];
 $ac = str_split($descricao);
-$cs = "";
+$sc = "";
 foreach ($ac as $key => $value)
 {
 	if (ord($ac[$key]) != 13)
 	{
 		if (ord($ac[$key]) != 10)
 		{			
-			$cs .= $value;
+			$sc .= $value;
 		}
 		else
 		{
-			$cs .= "\\n";			
+			$sc .= "\\n";			
 		}
 	}
 	else
 	{
-		$cs .= "\\r";		
+		$sc .= "\\r";		
 	}
 }
 /*  */
@@ -126,7 +126,7 @@ foreach ($ac as $key => $value)
             	<script>
 			    	$(function()
 			    	{
-					   var descricao = "<?php echo $cs; ?>";
+					   var descricao = "<?php echo $sc; ?>";
 					   $("#descricao").val(descricao);
 					});					
 			    </script>
