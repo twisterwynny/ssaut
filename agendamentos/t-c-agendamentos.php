@@ -21,7 +21,7 @@ $row = mysqli_fetch_array($result_query);
 $qtd = $row['qtd'];//RETORNA E ATRIBUI QUANTIDADE DE TURMAS PRA VARIÁVEL 
 echo "<BR>QUANTIDADE DE TURMAS= " . $qtd;
 if ($qtd > 0) $agendar = TRUE; // SE TIVER PELO MENOS UMA TURMA ENTÃO PERMITE AGENDAR
-$query = "SELECT id, title, descricao, vagas, start, end, color FROM eventos";// PESQUISA TODOS OS EVENTOS DISPONIVEIS NO BD
+$query = "SELECT id, title, vagas, start, end, color FROM eventos";// PESQUISA TODOS OS EVENTOS DISPONIVEIS NO BD
 $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO DE TODOS OS EVENTOS DISPONIVEIS.
 ?>
 
@@ -60,15 +60,14 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 						$('#ver #id').text(event.id); // SETA TEXTO ID
 						$('#ver #id').val(event.id); // SETA VALOR ID						
 						$('#ver #title').text(event.title);
-						$('#ver #title').val(event.title);
-						$('#ver #descricao').text(event.descricao);
-						$('#ver #descricao').val(event.descricao);
+						$('#ver #title').val(event.title);						
 						$('#ver #vagas').text(event.vagas); //SETA TEXTO DAS VAGAS
 						$('#ver #vagas').val(event.vagas);	//SETA QUANTIDADE DAS VAGAS // PRA CONSEGUIR ENVIAR ESSE VALOR IMPUT HIDDEN
 						$('#ver #start').text(event.start.format('DD/MM/YYYY HH:mm:ss'));
 						$('#ver #start').val(event.start.format('DD/MM/YYYY HH:mm:ss'));
 						$('#ver #end').text(event.end.format('DD/MM/YYYY HH:mm:ss'));
-						$('#ver #end').val(event.end.format('DD/MM/YYYY HH:mm:ss'));												
+						$('#ver #end').val(event.end.format('DD/MM/YYYY HH:mm:ss'));
+						$('#ver #color').text(event.color);
 						$('#ver #color').val(event.color);
 						//PRA EXIBIR OU NÃO OS BOTÕES CORRETOS.
 						var vagas = $('#ver #vagas').val(); // RETORNA QUANTIDADE DE VAGAS
@@ -100,8 +99,7 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 						?>//FECHA PHP
 							{
 							id: '<?php echo $row_events['id']; ?>',								
-							title: '<?php echo $row_events['title']; ?>',
-							descricao: '<?php echo $row_events['descricao']; ?>',
+							title: '<?php echo $row_events['title']; ?>',							
 							vagas: '<?php echo $row_events['vagas']; ?>',
 							start: '<?php echo $row_events['start']; ?>',
 							end: '<?php echo $row_events['end']; ?>',
@@ -188,29 +186,18 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 						<h4 class="modal-title text-center">Dados do Evento</h4>
 					</div>
 					<div class="modal-body">
-						<div class="ver">
-							<dl class="dl-horizontal">								
-								<dt>TEMA: </dt>
-								<dd id="title"></dd>
-								<dt>Descrição: </dt>
-								<dd id="descricao"></dd>
-								<dt>Inicio do Evento: </dt>
-								<dd id="start"></dd>
-								<dt>Fim do Evento: </dt>
-								<dd id="end"></dd>								
-								<dt>Vagas: </dt>
-								<dd id="vagas"></dd>
-							</dl>
-							<div class="form-group">
-								<div class="text-center">
-									<button id="zero" class="btn btn-agenda-visita btn-success">AGENDAR VISITA</button>
-									<button class="btn btn-lista-espera btn-primary">LISTA ESPERA</button>
-									<button class="btn btn-solicitar-vagas btn-warning">SOLICITAR VAGAS</button>
-								</div>
-							</div>
-						</div>
-						<div class="form">
-							<form class="form-horizontal" method="POST" action="proc-agendamento.php">								
+						<div class="ver">							
+							<form id="ver-evento" name="ver-evento" class="form-horizontal" method="POST" action="action.php">
+								<dl class="dl-horizontal">								
+									<dt>Título: </dt>
+									<dd id="title"></dd>									
+									<dt>Inicio do Evento: </dt>
+									<dd id="start"></dd>
+									<dt>Fim do Evento: </dt>
+									<dd id="end"></dd>								
+									<dt>Vagas: </dt>
+									<dd id="vagas"></dd>
+								</dl>														
 								<!--								
 								-->
 								<?php
@@ -221,19 +208,25 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 									<select name="turmas" id="turmas" required="">
 										<option value="">Selecione</option>
 								<?php
-									require_once("../escola/compara-select.php");
-									//$query = "SELECT vagas FROM eventos WHERE id=$id";// PESQUISA TODOS OS EVENTOS DISPONIVEIS NO BD
-									//$result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO DE TODOS OS EVENTOS DISPONIVEIS.
+									require_once("../escola/compara-select.php");									
 								?>
-									</select><BR><BR>								
+									</select><BR><BR>
 									
 									<input type="hidden" class="form-control" name="id" id="id">
+									<input type="hidden" class="form-control" name="title" id="title"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 									<input type="hidden" class="form-control" name="vagas" id="vagas">
+									<input type="hidden" class="form-control" name="start" id="start"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+									<input type="hidden" class="form-control" name="end" id="end"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
+									<input type="hidden" class="form-control" name="color" id="color"> <!-- PARA PEGAR OS DADOS SEM EXIBIR NO FORMULÁRIO -->
 									<div class="form-group">
-										<div class="col-sm-offset-2 col-sm-10">
-											<button type="button" class="btn btn-cancela-turma btn-secondary">cancelar</button>
-											<button type="submit" class="btn btn-ok btn-success">OK</button>											
-											<!-- <button type="submit" class="btn btn-primary">Lista Espera</button>
+										<div class="text-center">
+											<button type="submit" class="btn btn-mais-info btn-dark" name="i">Mais Informações</button>											
+											<button type="submit" id="zero" class="btn btn-agenda-visita btn-success" name="a">AGENDAR</button>
+											<button type="submit" class="btn btn-lista-espera btn-primary" name="l">LISTA ESPERA</button>
+											<button type="submit" class="btn btn-solicitar-vagas btn-warning" name="v">PEDIR VAGAS</button>
+											<button type="button" class="btn btn-cancela-turma btn-secondary" data-dismiss="modal">SAIR</button>
+											<!-- <button type="submit" class="btn btn-ok btn-success">OK</button>											
+											<button type="submit" class="btn btn-primary">Lista Espera</button>
 											<button type="submit" class="btn btn-warning">Solicitar Vagas</button>
 											<a href='lista-espera.php' class='btn btn-primary'>Lista Espera </a>
 											<a href='mais-vagas.php' class='btn btn-warning '>Solicitar Vagas</a> -->
@@ -259,38 +252,53 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 				</div>
 			</div>
 		</div>
-		<!-- 
-		<div class="modal fade" id="confirmar-agendamento-modal" tabindex="-1" role="dialog" aria-labelledby="confirmar-agendamento-modal">
+		<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel"> Confirmar Agendamento? </h4>
+                        <h4 class="modal-title text-center" id="myModalLabel">Informações Adicionais</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">	-->							
-								<!-- <button type="submit" class="btn btn-primary">Lista Espera</button>
-								<button type="submit" class="btn btn-warning">Solicitar Vagas</button>
-								<a href='lista-espera.php' class='btn btn-primary'>Lista Espera </a>
-								<a href='mais-vagas.php' class='btn btn-warning '>Solicitar Vagas</a> -->
-							<!-- 
-							</div>
-						</div>
+                        <?php
+                        $descricao = $_SESSION['descricao'];
+                        $nomes_dos_temas = $_SESSION['nomes_dos_temas'];
+                        $nomes_das_exposicoes = $_SESSION['nomes_das_exposicoes'];   
+                        //echo "TEMAS:<BR>";	<label for="title">Título: </label>                        
+                        ?>
+                        <label>DESCRIÇÃO: </label><BR>
+                        <?php
+                        echo nl2br($descricao);
+                        //echo $descricao;
+                        ?>
+                        <BR><BR>
+                        <label>TEMA(S): </label><BR>
+                        <?php
+                        foreach ($nomes_dos_temas as $key => $value)
+                        {
+                        	echo "$value<BR>";
+                        }
+                        //echo "EXPOSIÇÕES:<BR>";	<label for="title">Título: </label>
+                        ?>
+                        <BR><BR>
+                        <label>EXPOSIÇÕES: </label><BR>
+                        <?php
+                        foreach ($nomes_das_exposicoes as $key => $value)
+                        {
+                        	echo "$value<BR>";
+                        }
+                        ?>
                     </div>
                     <div class="modal-footer">
-                        <a href="cancela.php">
-                        	<button type="button" class="btn btn-cancela-agenda btn-secondary">cancelar</button>
-                        </a>
-						<a href="proc-edit-evento-escola.php">
-							<button type="submit" class="btn btn-confirma btn-success">CONFIRMAR</button>
-						</a>
+                    	<div class="text-center">
+	                        <!-- <a href="pagar.php"><button type="button" class="btn btn-primary">Pagar Agora</button></a> -->
+	                        <button type="button" class="btn btn-fechar-mais-info-evento btn-secondary" data-dismiss="modal">FECHAR</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        -->	
-
+		<!--         -->	
         <div class="modal fade" id="modal-funcionario-agendou" tabindex="-1" role="dialog" aria-labelledby="modal-funcionario-agendou" data-backdrop="static">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -322,8 +330,46 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 		<?php
 		}
 		?>
-
+		<?php
+        if (isset($_SESSION['i']))
+        {
+            ?>
+            <script>
+                $(document).ready(function()
+                {
+                    $('#info').modal('show');
+                });
+            </script>
+        <?php
+        unset($_SESSION['i']); // POR SEGURANÇA        
+        }
+        ?>
+        <script>			
+			$('.btn-fechar-mais-info-evento').on("click", function()
+			{				
+				var id = "<?php echo $_SESSION['id'];?>"				
+				var title = "<?php echo $_SESSION['title'];?>"				
+				var vagas = "<?php echo $_SESSION['vagas'];?>"
+				var start = "<?php echo $_SESSION['start'];?>"
+				var end = "<?php echo $_SESSION['end'];?>"
+				var color = "<?php echo $_SESSION['color'];?>"
+				$('#ver #id').text(id);
+				$('#ver #id').val(id);				
+				$('#ver #title').text(title);
+				$('#ver #title').val(title);				
+				$('#ver #vagas').text(vagas);
+				$('#ver #vagas').val(vagas);
+				$('#ver #start').text(start);
+				$('#ver #start').val(start);
+				$('#ver #end').text(end);
+				$('#ver #end').val(end);
+				$('#ver #color').text(color);
+				$('#ver #color').val(color);
+				$('#ver').modal('show');
+			});
+		</script>
 		<script>
+			/*
 			$('.btn-agenda-visita').on("click", function() {
 				$('.form').slideToggle();
 				$('.ver').slideToggle();
@@ -340,17 +386,7 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 				$('.form').slideToggle();
 				$('.ver').slideToggle();
 			});
-		</script>
-		<?php		/*if(isset($_SESSION['turma']))
-		{
-		?>
-		<script>
-			$(document).ready(function()
-			{
-				$('#confirmar-agendamento-modal').modal('show');								
-			});
-		</script>
-		<?php
-		}*/		?>
+			*/
+		</script>		
 	</body>
 </html>

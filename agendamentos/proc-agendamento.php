@@ -1,32 +1,18 @@
 <?php
 session_start();
-
-//Incluir conexao com BD
-include_once("../db/conexao.php");
-
-$turma = $_POST['turmas'];
-$_SESSION['turma'] = $turma;
+include_once("../db/conexao.php"); //Incluir conexao com BD
+//$turma = $_POST['turmas'];
+$turma = $_SESSION['turma'];
 //echo "<BR>$turma = TURMA<BR>";
-
-$query = "SELECT COUNT(*) AS total_alunos FROM alunos WHERE turma='$turma'";// CONTAR QUANTIDADE DE ALUNOS QUE TEM NA TURMA
-$result_query = mysqli_query($conn, $query); //RETORNA RESULTADO DA CONSULTA
-$row = mysqli_fetch_array($result_query);
-$QTD_alunos = $row['total_alunos'];//RETORNA E ATRIBUI QUANTIDADE DE ALUNOS PRA VARIÁVEL
+$QTD_alunos = $_SESSION['QTD_alunos'];//RETORNA E ATRIBUI QUANTIDADE DE ALUNOS PRA VARIÁVEL
 //echo "<BR>$QTD_alunos = QTD_alunos<BR>";
-$_SESSION['QTD_alunos'] = $QTD_alunos;
-
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);//ID do evento
+$id = $_SESSION['id_evento']//ID do evento
 //echo "<BR>$id  = ID EVENTO<BR>";
-$vagas = filter_input(INPUT_POST, 'vagas', FILTER_SANITIZE_NUMBER_INT);//vagas do evento
+$vagas = $_SESSION['vagas'];//vagas do evento
 //echo "<BR>$vagas  = vagas EVENTO<BR>";
-
-$_SESSION['id-evento'] = $id;
-$_SESSION['vagas'] = $vagas;
 //$escola = $_SESSION['usuarioId']; //ID da escola
 $escola = $_SESSION['escola']; //ID da escola
-
 //echo "<BR>$escola  = usuario <BR>";
-
 if(!empty($id) && !empty($QTD_alunos) && $turma != 0){
 	//Converter a data e hora do formato brasileiro para o formato do Banco de Dados		
 	
