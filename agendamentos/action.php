@@ -3,8 +3,8 @@ session_start();
 header("Content-type: text/html; charset=utf-8");
 include_once("../db/conexao.php");
 
-if(isset($_POST["a"]))
-{
+if ($_POST['turmas'])
+{	 	
 	//echo "botão clicado foi o inserir";
 	$turma = $_POST['turmas'];
 	$_SESSION['turma'] = $turma;
@@ -27,8 +27,10 @@ if(isset($_POST["a"]))
 	//$escola = $_SESSION['usuarioId']; //ID da escola
 	$escola = $_SESSION['escola']; //ID da escola
 
-	//echo "<BR>$escola  = usuario <BR>";
-	header("Location: proc-agendamento.php");	
+	//echo "<BR>$escola<BR>";
+	if(isset($_POST["a"])) header("Location: proc-agendamento.php");
+	else if(isset($_POST["l"])) header("Location: lista-espera.php");		
+	else header("Location: mais-vagas.php");
 }
 else if(isset($_POST["i"]))
 {	
@@ -108,12 +110,9 @@ else if(isset($_POST["i"]))
 
 	header("Location: t-c-agendamentos.php");
 }
-else if(isset($_POST["l"]))
-{
-	header("Location: proc-agendamento.php");
-}
 else
 {
-	header("Location: proc-agendamento.php");
+	$_SESSION['msg'] = "<div class='alert alert-warning' role='alert'> VOCÊ NÃO SELECIONOU UMA TURMA. <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+	header("Location: t-c-agendamentos.php");	
 }
 ?>

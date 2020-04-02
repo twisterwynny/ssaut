@@ -205,7 +205,7 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 								if ($qtd) {	// SE DIFERENTE DE ZERO É VERDADEIRO
 								?>
 									<label>Escolha a Turma : </label>
-									<select name="turmas" id="turmas" required="">
+									<select name="turmas" id="turmas" >
 										<option value="">Selecione</option>
 								<?php
 									require_once("../escola/compara-select.php");									
@@ -235,16 +235,18 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 								<?php
 								}
 								//else {
-								if (!$qtd) {
+								//if (!$qtd) {
 								?>
+								<!--
 									<div class='alert alert-warning' role='alert'>
 										<H7>
 											Para realizar qualquer agendamento é necessário cadastrar a Turma (com seus respectivos Alunos) que deseja levar para fazer a visita. Retorne ao menu inicial, OU, clique no botão da direita											
 											<a href="../escola/form-cad-turma.php" class="btn btn-success pull-right">Cadastar Turmas e Alunos</a>
 										</H7>										
 									</div>									
+								-->
 								<?php // IDEIA COLOCAR header("Location:  AQUI E EXIBIR A MENSAGEM POR SESSION NA PAGINA DE CADASTRO DE TURMAS E ALUNOS
-								}
+								//}
 								?>
 							</form>						
 						</div>
@@ -387,6 +389,44 @@ $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO D
 				$('.ver').slideToggle();
 			});
 			*/
-		</script>		
+		</script>
+
+		<div class="modal fade" id="modal-nao-tem-turma" tabindex="-1" role="dialog" aria-labelledby="modal-funcionario-agendou" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                	<div class="text-center">
+	                    <div class="modal-header">                        
+	                        <h4 class="modal-title" id="myModalLabel">Você não cadastrou nenhuma Turma</h4>
+	                    </div>
+	                </div>
+                    <div class="modal-body">
+                        <div class='alert alert-warning' role='alert'>
+							<H7>
+								Para realizar qualquer agendamento é necessário cadastrar a Turma (com seus respectivos Alunos) que deseja levar para fazer a visita. Retorne ao menu inicial, OU, clique no botão abaixo:								
+							</H7>										
+						</div>
+                    </div>
+                    <div class="modal-footer">
+                    	<div class="text-center">
+                    		<a href="../escola/form-cad-turma.php" class="btn btn-success">Cadastar Turmas e Alunos</a>                        
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php		
+		if($qtd == 0)
+		{
+		?>
+			<script>
+				$(document).ready(function()
+				{
+					$('#modal-nao-tem-turma').modal('show');
+				});
+			</script>
+		<?php
+		}
+		?>		
 	</body>
 </html>

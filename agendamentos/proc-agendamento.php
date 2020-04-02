@@ -6,7 +6,7 @@ $turma = $_SESSION['turma'];
 //echo "<BR>$turma = TURMA<BR>";
 $QTD_alunos = $_SESSION['QTD_alunos'];//RETORNA E ATRIBUI QUANTIDADE DE ALUNOS PRA VARIÁVEL
 //echo "<BR>$QTD_alunos = QTD_alunos<BR>";
-$id = $_SESSION['id_evento']//ID do evento
+$id = $_SESSION['id-evento'];//ID do evento
 //echo "<BR>$id  = ID EVENTO<BR>";
 $vagas = $_SESSION['vagas'];//vagas do evento
 //echo "<BR>$vagas  = vagas EVENTO<BR>";
@@ -57,15 +57,17 @@ if(!empty($id) && !empty($QTD_alunos) && $turma != 0){
 				header("Location: t-c-agendamentos.php");
 			}			
 		}
-		else
-		{
+		//else
+		//{
 			//echo "<BR>SEGUNDO<BR>";
 			//$_SESSION['msg'] = "<div class='alert alert-warning' role='alert'> a quantidade de Alunos é maior do que a quantidade de Vagas <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 			//$_SESSION['msg'] = "<div class='text-center alert alert-warning' role='alert'> <H7> A turma informada tem mais alunos do que a quantidade de vagas. <BR> Se você ainda quiser agendar para este evento específico você ainda tem duas opções: ENTRAR NA LISTA DE ESPERA. ou SOLICTAR + VAGAS. <BR> como funciona: <BR> Lista de Espera: quem desejar entrar na lista de espera, será informado por nós quando outras escolas desistirem daquele agendamento, liberando assim, as vagas existentes para sua escola. <BR> Solicitar Mais Vagas: caso a sua turma seja maior do que a quantidade de vagas do evento, a nossa equipe fárá a análise, e após isso, entramos em contato para responder. <BR> <div class='text-center'> <a href='lista-espera.php' class='btn btn-primary pull-center'>Lista Espera </a> <a href='mais-vagas.php' class='btn btn-warning pull-center'>Solicitar Vagas</a> </div> </H7> </div>";
 			//$_SESSION['msg'] = "<div class='text-center alert alert-warning' role='alert'> <H7> A turma informada tem mais alunos do que a quantidade de vagas. <BR> Para continuar tentando agendar neste evento específico, só restam duas opções: <BR> 1ª - Lista de Espera: quem estiver na lista de espera será informado se outra Escola liberar suas vagas ocupadas. <BR> 2ª - Solicitar Mais Vagas: se a turma tem mais de 40 alunos, a nossa equipe fárá a análise entrará em contato para dizer se existe essa possíbilidade. </H7> </div>";
+			
 			//header("Location: t-c-agendamentos.php");
-			header("Location: outras-opcoes.php");
-		}		
+
+			//header("Location: outras-opcoes.php");
+		//}		
 	}
 	else
 	{
