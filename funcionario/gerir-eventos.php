@@ -37,6 +37,9 @@ session_start();
 					<li class="list-group-item list-group-item-info">
 						<a href="t-c-gerir-eventos.php">Editar Eventos</a>
 					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="../fMinhaCronJob.php">Enviar Emails</a>
+					</li>
 				</ul>
 			</div>
 		</div>

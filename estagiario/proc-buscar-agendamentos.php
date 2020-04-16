@@ -2,7 +2,8 @@
 session_start();
 include_once("../db/conexao.php"); //Incluir conexao com BD
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);//ID do evento
-$query = "SELECT id, escola, turma FROM agendamentos WHERE (evento = '$id' AND confirmado = 1)"; 
+//$query = "SELECT id, escola, turma FROM agendamentos WHERE (evento = '$id' AND confirmado = 1)"; 
+$query = "SELECT id, escola, turma FROM agendamentos WHERE (evento = '$id')"; 
 $result_query = mysqli_query($conn, $query);
 $rs = mysqli_affected_rows($conn);
 $_SESSION['result_search'] = $rs;

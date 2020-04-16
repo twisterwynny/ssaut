@@ -80,7 +80,7 @@ session_start();
 			<label>Data do Fim do Semestre: </label>
 			<input type="date" name="fim_semestre" id="fim_semestre" maxlength="10" disabled="" required="">
 			<BR>
-			<label id="frase" style.visibility="hidden" > Se marcar "Estagiário" é obrigatório informar a data do Fim do Semestre </label>
+			<label id="frase" style.visibility="hidden" > Se marcar "Estagiário" é obrigatório informar a data do Fim Semestre </label>
 			<BR>
 			<input type="submit" value="Cadastrar">
 		</form>

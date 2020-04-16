@@ -6,20 +6,20 @@ if ($_SESSION['permissao'] == 2) // SE USUÁRIO É FUNCIONÁRIO
 	//$escola = filter_input(INPUT_POST, 'escola_selecionada', FILTER_SANITIZE_NUMBER_INT);							
 	//$_SESSION['escola'] = $escola;
 	$escola = $_SESSION['escola'];
-	echo "usuario funcionario agenda para escola = " . $_SESSION['escola'];
+	//echo "usuario funcionario agenda para escola = " . $_SESSION['escola'];
 }
 else // SE USUÁRIO É ESCOLA
 {
 	$escola = $_SESSION['usuarioId'];
 	$_SESSION['escola'] = $escola;
-	echo "usuario escola = " . $escola;
+	//echo "usuario escola = " . $escola;
 }
 
 $query = "SELECT COUNT(id) AS qtd FROM turmas WHERE escola='$escola'"; //CONTA QUANTIDADE DE TURMAS QUE ESCOLA TEM
 $result_query = mysqli_query($conn, $query);
 $row = mysqli_fetch_array($result_query);
 $qtd = $row['qtd'];//RETORNA E ATRIBUI QUANTIDADE DE TURMAS PRA VARIÁVEL 
-echo "<BR>QUANTIDADE DE TURMAS= " . $qtd;
+//echo "<BR>QUANTIDADE DE TURMAS= " . $qtd;
 if ($qtd > 0) $agendar = TRUE; // SE TIVER PELO MENOS UMA TURMA ENTÃO PERMITE AGENDAR
 $query = "SELECT id, title, vagas, start, end, color FROM eventos";// PESQUISA TODOS OS EVENTOS DISPONIVEIS NO BD
 $result_query = mysqli_query($conn, $query); // RETORNA PESQUISA COM RESULTADO DE TODOS OS EVENTOS DISPONIVEIS.
