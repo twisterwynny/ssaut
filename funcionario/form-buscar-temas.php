@@ -11,26 +11,53 @@ include_once "../db/conexao.php";
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>		
-		<title> Buscar Temas </title>		
+		<title> Buscar Temas </title>	
+		<link rel="stylesheet" href="./../assets/bootstrap/bootstrap.css">		
 	</head>
 	<body>
-		<a href="../index.php">HOME</a><br>
-		<a href="form-cad-temas.php">Cadastrar Temas</a><br>
-		<a href="form-cad-exposicoes.php">Cadastrar Exposições</a><br>				
-		<a href="form-listar-temas.php">Listar Temas</a><br>
-		<a href="form-buscar-temas.php">Buscar Temas</a><br>
-		<a href="form-listar-exposicoes.php">Listar Exposições</a><br>
-		<a href="form-buscar-exposicoes.php">Buscar Exposições</a><br>
-		<a href="t-c-gerir-eventos.php">Editar Eventos</a><br>
+		<div class="container mt-5">
+			<div class="row ml-3">
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-info">
+						<a href="../index.php">HOME</a>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="form-cad-temas.php">Cadastrar Temas</a>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="form-cad-exposicoes.php">Cadastrar Exposições</a>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="form-listar-temas.php">Listar Temas</a>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="form-buscar-temas.php">Buscar Temas</a>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="form-listar-exposicoes.php">Listar Exposições</a>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="form-buscar-exposicoes.php">Buscar Exposições</a>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<a href="t-c-gerir-eventos.php">Editar Eventos</a>
+					</li>
+				</ul>
+			</div>
+			<div class="mt-3">
+				<div class=" col-md-4">
+					<h2> Buscar Temas </h2>
+					<form method="POST" action="">
+						<div class="form-group">
+							<label>Nome: </label>
+							<input  class="form-control" type="text" name="nome" placeholder="Digite o nome">
+						</div>
+						<button class="btn btn-primary" name="buscar" type="submit" value="Encontrar">Encontrar</button>
+					</form>
+				</div>
+			</div>
+		</div>
 		
-		<h1> Buscar Temas </h1>
-		
-		<form method="POST" action="">
-			<label>Nome: </label>
-			<input type="text" name="nome" placeholder="Digite o nome"><br><br>
-			
-			<input name="buscar" type="submit" value="Encontrar">
-		</form><br><br>
 		
 		<?php
 		$buscar = filter_input(INPUT_POST, 'buscar', FILTER_SANITIZE_STRING);
@@ -69,4 +96,8 @@ include_once "../db/conexao.php";
 		</script>
 
 	</body>
+<script src="./../assets/bootstrap/jquery.js"></script>
+<script src="./../assets/bootstrap/popper.js"></script>
+<script src="./../assets/bootstrap/bootstrap.js"></script>
+<script src="./../assets/bootstrap/bootstrap.bundle.js"></script>
 </html>
