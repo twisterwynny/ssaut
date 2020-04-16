@@ -52,7 +52,7 @@ else
 	foreach ($a_series as $key => $value)
 	{
 		$serie = $value;		
-		require_once("../escola/retorna-nivel-serie.php");		
+		require_once("../escola/compara-to-string.php");		
 		traduzDadosTurma ();		
 		$a_dados_turmas[] = $frase . $a_nomes_turmas[$key];
 	}	
