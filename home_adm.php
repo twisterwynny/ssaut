@@ -27,8 +27,6 @@ $contato = mysqli_fetch_assoc($query); **/
     <link href="css/adm.css" rel="stylesheet">
     <link rel="sortcut icon" href="img/antares.png" type=".png" />
 
-    
-
 </head>
 
 <body id="page-top">
@@ -41,7 +39,7 @@ $contato = mysqli_fetch_assoc($query); **/
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon rotate-n-15">
+                <div class="sidebar-brand-icon">
                     <img id="img_adm_ecmat" src="img/antares2.png">
                 </div>
                 <div class="sidebar-brand-text mx-3">Antares</div>
@@ -49,76 +47,68 @@ $contato = mysqli_fetch_assoc($query); **/
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-            <?php 
-                if ($_SESSION['permissao']==1) {       
-            ?>
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Editar Site
-            </div>
+            <?php
+            if ($_SESSION['permissao']==1) {
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="./estagiario/t-c-estagiario.php">
+                        <span>Cadastrar Horarios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="agendamentos.php" data-toggle="modal" data-target="#usuarios">
+                        <span>Agendamentos</span>
+                    </a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#contatoModal" href="#">
-                    <span>Informações de Contato</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
             <?php }?>
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Gerenciamento
-            </div>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#minhaconta">
-                    <span>Minha Conta</span>
-                </a>
-            </li>
-            <?php 
-                if ($_SESSION['permissao']==1) {       
-            ?>
-            <li class="nav-item">
-                <a class="nav-link" href="funcionarios_adm.php">
-                    <span>Funcionarios</span>
-                </a>
-            </li>
-            <?php }if ($_SESSION['permissao']==2) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="estagiarios_adm.php">
-                    <span>Estagiários</span>
-                </a>
-            </li>
-            <?php } ?>
-            <li class="nav-item">
-                <a class="nav-link" href="escola_adm.php">
-                    <span>Escolas</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="agenda_adm.php">
-                    <span>Agenda</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="exposicoes_adm.php">
-                    <span>Exposições</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span>Cadastrar Horarios</span>
-                </a>
-            </li>
-            <?php 
-                if ($_SESSION['permissao']==1) {       
-            ?>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span>Relatorio</span>
-                </a>
-            </li>
-            <?php } ?>
+
+            <?php if ($_SESSION['permissao']==2 || $_SESSION['permissao']==4) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="usuarios.php" data-toggle="modal" data-target="#usuarios">
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="agenda_adm.php">
+                        <span>Agenda</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./funcionario/gerir-eventos.php">
+                        <span>Exposições</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./funcionario/t-c-gerir-estagiarios.php">
+                        <span>Cadastrar Horários</span>
+                    </a>
+                </li>
+
+            <?php }?>
+
+            <?php if ($_SESSION['permissao']==3) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="./escola/form-cad-turma.php">
+                        <span>Cadastrar Turmas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./agendamentos/t-c-agendamentos.php">
+                        <span>Gerenciar Visitas</span>
+                    </a>
+                </li>
+
+            <?php }?>
+
+            <?php if ($_SESSION['permissao']==4) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="usuarios.php" data-toggle="modal" data-target="#usuarios">
+                        <span>Usuários</span>
+                    </a>
+                </li>
+            <?php }?>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -351,7 +341,7 @@ $contato = mysqli_fetch_assoc($query); **/
                             </div>
                         </div>
                     </div>
-                    <div class="col"></div>
+
                 </div>
                 <!-- End of Main Content -->
             </div>

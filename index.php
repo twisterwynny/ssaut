@@ -14,9 +14,8 @@ if (isset($_SESSION['funcionario_agendou']))
     <!-- Meta tags Obrigatórias -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">  
     <link href='CDN/bootstrap.min.css' rel='stylesheet'>
     <link href='CDN/all.css' rel='stylesheet'>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
@@ -27,11 +26,8 @@ if (isset($_SESSION['funcionario_agendou']))
     <link href="./css/login-index.css" rel="stylesheet">
     <link href='./calendario/core/main.css' rel='stylesheet'>
     <link href='./calendario/daygrid/main.css' rel='stylesheet'>
-    <!--
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Jomolhari&display=swap" rel="stylesheet">   -->
-    <link href='login-index/roboto.css' rel='stylesheet'>
-    <link href='login-index/jomolhari.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Jomolhari&display=swap" rel="stylesheet">  
 
     <title> Observatório Antares </title>
 
@@ -76,16 +72,15 @@ if (isset($_SESSION['funcionario_agendou']))
 
     <script type="text/javascript">
         $(document).on("scroll", function() {
-            //if ($(document).scrollTop() > 580) {
-                //$("nav").removeClass("nav_grande").addClass("nav_small");
-                //$("#observatorio_nav").html("Observatório Antares");
-            //}
+            if ($(document).scrollTop() > 580) {
+                $("nav").removeClass("nav_grande").addClass("nav_small");
+                $("#observatorio_nav").html("Observatório Antares");
+            }
             if ($(document).scrollTop() < 580) {
                 $("nav").removeClass("nav_small").addClass("nav_grande");
                 $("nav").removeClass("nav_cor").addClass("nav_transparente");
                 $("li a.nav-link").addClass("branco");
-                //$("#observatorio_nav").html("Observatório Astronômico Antares");
-                $("#observatorio_nav").html("Observatório Antares");
+                $("#observatorio_nav").html("Observatório Astronômico Antares");
             }
             if ($(document).scrollTop() > 15) {
                 $("li a").removeClass("branco");
@@ -109,7 +104,18 @@ if (isset($_SESSION['funcionario_agendou']))
                 $("a.contato2").addClass("branco");
             }
         })
-    </script>   
+    </script>
+
+    <script> //PARA DAR AUTO FOCO NO PRIMEIRO INPUT DE TODOS OS MODAIS DO INDEX.PHP
+        $('#modal-acesso').on('shown.bs.modal', function () {
+          $('#email').trigger('focus')
+        })
+
+        $('#modal-cadastro-escola').on('shown.bs.modal', function () {
+          $('#nome').trigger('focus')
+        })
+    </script> 
+
 
 </head>
 
@@ -124,25 +130,30 @@ if (isset($_SESSION['funcionario_agendou']))
     </header>        		
 
     <?php	    					
-        //require_once("msg.php");
         require_once("inicio-espaco.php");       
         require_once("acesso.php");
-        //require_once("bootstrap-login.php");
-        require_once("agendamento.php");
         require_once("sobre.php");
+        require_once("agendamento.php");
         require_once("contato.php");
     ?>
 
-    <script> //PARA DAR AUTO FOCO NO PRIMEIRO INPUT DE TODOS OS MODAIS DO INDEX.PHP
-        $('#modal-acesso').on('shown.bs.modal', function () {
-          $('#email').trigger('focus')
-        })
-
-        $('#modal-cadastro-escola').on('shown.bs.modal', function () {
-          $('#nome').trigger('focus')
-        })
-    </script>                       
-
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Tem certeza que deseja sair?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="access/dar-o-fora.php">Sair</a>
+                </div>
+            </div>
+        </div>
+    </div>                      
 </body>
 
 <footer class="navbar navbar-fixed-bottom mb-0 mt-3" style="background-color: #006A9D">
@@ -154,10 +165,7 @@ if (isset($_SESSION['funcionario_agendou']))
         </div>
     </div>
 </footer>
-<!--
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
--->
+
 <script src="CDN/popper.min.js"></script>
 <script src="CDN/bootstrap.min.js"></script>
 
