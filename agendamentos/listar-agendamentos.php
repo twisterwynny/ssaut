@@ -51,10 +51,10 @@ include_once("../db/conexao.php");
 			
 			$inicio = ($total_de_resultados_por_pagina * $pagina) - $total_de_resultados_por_pagina; 
 			
-			$query = "SELECT * FROM agendamentos WHERE (escola = $usuario AND excluido = 0) LIMIT $inicio, $total_de_resultados_por_pagina"; vez.
+			$query = "SELECT * FROM agendamentos WHERE (escola = $usuario AND excluido = 0) LIMIT $inicio, $total_de_resultados_por_pagina";
 			$result_query = mysqli_query($conn, $query);
 
-			while($row_agendamento = mysqli_fetch_assoc($result_query))
+			while($row_agendamento = mysqli_fetch_assoc($result_query)) //mysqli_fetch_assoc($result_query)
 			{	
 				$a_ids[] = $row_agendamento['id'];
 				$a_eventos[] = $row_agendamento['evento'];
